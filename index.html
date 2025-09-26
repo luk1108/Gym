@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+<html lang="ru"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Тренировки</title>
@@ -8,86 +6,307 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Тренировки">
   <style>
-    :root { --pad: 18px; --bg: #0f1115; --card: #171a21; --txt: #e9eef5; --muted: #9aa5b1; --acc: #4da3ff; --acc2:#7ce38b; --radius: 14px; }
+    :root {
+      --pad: 18px;
+      --bg: #0f1115;
+      --card: #171a21;
+      --txt: #e9eef5;
+      --muted: #9aa5b1;
+      --acc: #4da3ff;
+      --acc2:#7ce38b;
+      --radius: 14px;
+    }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; }
-    body { margin: 0; font-family: -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif; color: var(--txt);
-      background: radial-gradient(1200px 800px at 30% -10%, #172036 0%, #0f1115 40%) no-repeat, var(--bg); }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      color: var(--txt);
+      background: radial-gradient(1200px 800px at 30% -10%, #172036 0%, #0f1115 40%) no-repeat, var(--bg);
+    }
     .container { padding: calc(env(safe-area-inset-top) + var(--pad)) var(--pad) var(--pad) var(--pad); }
-    h1,h2,h3 { margin: 0 0 8px 0; } .subtitle { color: var(--muted); margin-bottom: 16px; }
+    h1,h2,h3 { margin: 0 0 8px 0; }
+    h1 { letter-spacing:.2px; }
+    .subtitle { color: var(--muted); margin-bottom: 16px; }
     .row { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .btn { display:block; width:100%; border:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg,#1a1f2b,#121620);
-      color:#fff; padding:14px 16px; border-radius:12px; font-size:17px; text-align:center; text-decoration:none; cursor:pointer; }
-    .btn.primary{background:linear-gradient(180deg,#2e5cff,#1b42d8);} .btn.good{background:linear-gradient(180deg,#29c163,#1a8a46);} .btn.ghost{background:transparent;border-color:rgba(255,255,255,.18);}
-    .header{display:flex;align-items:center;gap:10px;margin-bottom:12px;} .back{appearance:none;border:none;background:transparent;color:var(--txt);font-size:16px;padding:8px;border-radius:10px;}
-    .back:active{background:#00000033;} .title{font-weight:700;font-size:22px;letter-spacing:.2px;} .screen{display:none;} .screen.active{display:block;}
-    .card{background:linear-gradient(180deg,#171b25,#121620);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);}
-    .ex{border-radius:12px;border:1px dashed rgba(255,255,255,.18);padding:12px;} .ex h3{font-size:17px;margin:0 0 4px 0;}
-    .meta{color:var(--muted);font-size:14px;display:flex;gap:14px;flex-wrap:wrap;} .dot{width:8px;height:8px;border-radius:8px;background:var(--acc2);display:inline-block;margin-right:6px;}
-    .pager{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px;} .pill{color:#cfe3ff;background:#11203a;border:1px solid #1d3b63;border-radius:999px;padding:6px 10px;font-size:13px;}
-    .hint{color:var(--muted);font-size:13px;margin-top:10px;} .footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center;}
-    .swipe{touch-action: pan-y;}
+    .btn {
+      display: block; width: 100%;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, #1a1f2b, #121620);
+      color: #fff; padding: 14px 16px;
+      border-radius: 12px; font-size: 17px; text-align: center;
+      text-decoration: none; cursor: pointer;
+    }
+    .btn.primary { background: linear-gradient(180deg, #2e5cff, #1b42d8); }
+    .btn.good { background: linear-gradient(180deg, #29c163, #1a8a46); }
+    .btn.ghost { background: transparent; border-color: rgba(255,255,255,.18); }
+    .header {
+      display:flex; align-items:center; gap:10px; margin-bottom: 12px;
+    }
+    .back { appearance:none; border:none; background:transparent; color:var(--txt); font-size:16px; padding:8px 8px; border-radius:10px; }
+    .back:active { background:#00000033; }
+    .title { font-weight:700; font-size:22px; letter-spacing: .2px; }
+    .screen { display:none; }
+    .screen.active { display:block; }
+    .card {
+      background: linear-gradient(180deg, #171b25, #121620);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .ex {
+      border-radius: 12px;
+      border: 1px dashed rgba(255,255,255,.18);
+      padding: 12px;
+    }
+    .ex h3 { font-size: 17px; margin: 0 0 6px 0; line-height:1.25; }
+    .meta { color: var(--muted); font-size: 14px; display:flex; gap: 14px; flex-wrap:wrap; }
+    .dot { width:8px; height:8px; border-radius:8px; background:var(--acc2); display:inline-block; margin-right:6px; }
+    .pager { display:flex; align-items:center; justify-content:space-between; margin-top: 14px; gap:10px; }
+    .pill { color: #cfe3ff; background: #11203a; border: 1px solid #1d3b63; border-radius: 999px; padding: 6px 10px; font-size: 13px; }
+    .hint { color: var(--muted); font-size: 13px; margin-top: 10px; }
+    .footer { margin-top: 18px; color: var(--muted); font-size: 12px; text-align:center; }
+    .swipe { touch-action: pan-y; }
+    .extra { color:#ff9b9b; font-size:13px; margin-top:6px; }
+    .label { font-size: 13px; color: #cfe3ff; background:#0f223d; border:1px solid #1c3e6a; padding:6px 10px; border-radius:999px; display:inline-block; margin-bottom:10px; }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- HOME -->
     <section id="home" class="screen active">
       <h1>Тренировки</h1>
       <div class="subtitle">Выберите спортсмена</div>
       <div class="row">
-        <button class="btn primary" onclick="openPerson('pavel')">Павел</button>
-        <button class="btn good" onclick="openPerson('yulia')">Юлия</button>
+        <button id="btnPavel" class="btn primary">Павел</button>
+        <button id="btnYulia" class="btn good">Юлия</button>
       </div>
-      <div class="footer">PWA-версия · Добавьте на экран «Домой» через «Поделиться»</div>
+      <div class="footer">PWA-версия · Можно добавить на экран «Домой» через «Поделиться»</div>
     </section>
 
+    <!-- PERSON -->
     <section id="person" class="screen">
       <div class="header">
-        <button class="back" onclick="goHome()">‹ Назад</button>
+        <button id="backHome" class="back">‹ Назад</button>
         <div class="title" id="personTitle">Юлия</div>
       </div>
       <div class="row">
-        <button class="btn" onclick="openDay(1)">День 1</button>
-        <button class="btn" onclick="openDay(2)">День 2</button>
-        <button class="btn" onclick="openDay(3)">День 3</button>
+        <button id="day1" class="btn">День 1</button>
+        <button id="day2" class="btn">День 2</button>
+        <button id="day3" class="btn">День 3</button>
       </div>
-      <div class="hint">Свайпайте страницы: одиночное упражнение или сет (2 упражнения).</div>
+      <div class="hint">Свайпайте «День» по одной странице за раз: одиночное упражнение или сет (2 упражнения).</div>
     </section>
 
+    <!-- DAY -->
     <section id="day" class="screen">
       <div class="header">
-        <button class="back" onclick="goPerson()">‹ Назад</button>
+        <button id="backPerson" class="back">‹ Назад</button>
         <div class="title" id="dayTitle">День 1</div>
       </div>
 
       <div class="card swipe" id="pageCard">
+        <div id="dayLabel" class="label"></div>
         <div id="pages"></div>
+
         <div class="pager">
-          <button class="btn ghost" id="prevBtn" onclick="prevPage()">◀︎ Назад</button>
+          <button class="btn ghost" id="prevBtn">◀︎ Назад</button>
           <div class="pill" id="counter">1 / 1</div>
-          <button class="btn ghost" id="nextBtn" onclick="nextPage()">Вперёд ▶︎</button>
+          <button class="btn ghost" id="nextBtn">Вперёд ▶︎</button>
         </div>
         <div class="hint" id="note"></div>
       </div>
-      <div class="footer">Подходы и повторы указаны под каждым упражнением.</div>
+      <div class="footer">Подходы, повторы и группы мышц указаны под каждым упражнением.</div>
     </section>
   </div>
 
 <script>
-const programs={yulia:{1:[{ex:[{title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120",sets:"1",reps:"10:00",details:"Разминка, произвольный темп"}]},{ex:[{title:"[Тренажёр] Жим ногами (наклонный, верх платформы, широкая стойка)",sets:"4",reps:"15–20",details:"Темп 3:1"},{title:"[Тренажёр] Разведения бёдер (+эспандер), отклонившись назад",sets:"4",reps:"15–20",details:"Пауза 2\" в пиковой точке"}],note:"Отдых: до 30 с между упражнениями, до 3 мин между сетами"},{ex:[{title:"[Нижний блок] Сгибания голени стоя в наклоне (одной ногой)",sets:"4",reps:"20/20",details:"Пауза 2\" в момент сгибания"},{title:"[Нижний блок] Хинчи (с ротацией таза)",sets:"4",reps:"20/20",details:"Темп 2:2"}],note:"Отдых: до 30 с / до 3 мин"},{ex:[{title:"[Верхний блок] Тяга к груди сидя (средний нейтральный хват)",sets:"4",reps:"15–20",details:"Взрывная тяга, возврат 3 счёта"},{title:"[Нижний блок] Тяга к поясу сидя (средний нейтральный хват)",sets:"4",reps:"12–15",details:"Темп 1:3"}],note:"Отдых: до 30 с / до 3 мин"},{ex:[{title:"[Свой вес] Отжимания (широкая постановка / с коленей)",sets:"4",reps:"12–15",details:"Темп 3:1"},{title:"[Гантели] Круговые разведения стоя",sets:"4",reps:"15–20",details:"Темп 1:3"}],note:"Отдых: до 30 с / до 3 мин"},{ex:[{title:"[Свой вес] Прямые скручивания лёжа (ноги на весу, 90°)",sets:"3",reps:"15–20",details:"Прожимка 1–2\""}],note:"Минимально возможный отдых"},{ex:[{title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120",sets:"1",reps:"10:00",details:"Заминка"}]}],2:[{ex:[{title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120",sets:"1",reps:"10:00",details:"Разминка"}]},{ex:[{title:"[Смит] Фронтальные зашагивания на платформу (без возврата стопы)",sets:"4",reps:"15/15",details:"Средний бокс; темп 2:2"},{title:"[Тренажёр] Гиперэкстензия (колени прямые, стопы параллельны)",sets:"4",reps:"12–15",details:"Пауза 2\""}],note:"Отдых: до 30 с / до 3 мин"},{ex:[{title:"[Гиря/гантель] Гоблет-приседания",sets:"4",reps:"15–20",details:"Темп 2:2"},{title:"[Гиря/гантель] Мёртвая тяга на одной ноге («ласточка»)",sets:"4",reps:"15/15",details:"Темп 3:1; колено опорной прямое"}],note:"Отдых: до 30 с / до 3 мин"},{ex:[{title:"[Нижний блок] Тяга к поясу стоя в наклоне (средний обратный хват)",sets:"4",reps:"12–15",details:"Темп 1:3"},{title:"[Пек-дек] Поочерёдные сведения рук (сидя, наклон 90°)",sets:"4",reps:"24–30",details:"Темп 2:2"}],note:"Отдых: до 30 с / до 3 мин"},{ex:[{title:"[Гравитрон] Подтягивания (широкий прямой хват)",sets:"4",reps:"12–15",details:"Темп 1:3"},{title:"[Гантели] Подъёмы перед собой с последующим разведением (сидя, 80°)",sets:"4",reps:"15–20",details:"Темп 2:2"}],note:"Отдых: до 30 с / до 3 мин"},{ex:[{title:"[Свой вес] Глубокие диагональные скручивания (ноги на скамье)",sets:"3",reps:"20/20",details:"Темп 1:1 (быстро)"}]},{ex:[{title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120",sets:"1",reps:"10:00",details:"Заминка"}]}],3:[{ex:[{title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120",sets:"1",reps:"10:00",details:"Разминка"}]},{ex:[{title:"[Штанга] Становая тяга «сумо»",sets:"4",reps:"12–20",details:"Темп 1:1 (быстрый)"}]},{ex:[{title:"[Свой вес] Наклоны с подседом на одной ноге на платформе (с опорой)",sets:"4",reps:"25/25",details:"Темп 2:2"}],note:"В какой руке гантель — на ту ногу опора"},{ex:[{title:"[Штанга] Мёртвая тяга (ноги почти прямые)",sets:"4",reps:"12–15",details:"Темп 3:1; без прогиба в пояснице"},{title:"[Нижний блок] Отведения бедра стоя (стопа нейтральна)",sets:"4",reps:"20/20",details:"Темп 2:2"}]},{ex:[{title:"[Верхний блок] Тяга к груди сидя (узкий обратный хват)",sets:"4",reps:"10+10",details:"Пауза 2\" в момент сокращения"},{title:"[Гантели] Отведения плеч стоя",sets:"4",reps:"15–20",details:"Темп 2:2"}],note:"Локти над плечом; движение из плеча"},{ex:[{title:"[Рычажный] Горизонтальная тяга одной рукой (высокая посадка)",sets:"4",reps:"15/15",details:"Темп 1:3"},{title:"[Гантели] Жим лёжа под 30° одной рукой (прямой хват)",sets:"4",reps:"30",details:"Поочерёдно по 5 повторений на руку"}]},{ex:[{title:"[Роллер] Прокат с коленей",sets:"3",reps:"20–30",details:"Темп 1:1"}],note:"Минимально возможный отдых"},{ex:[{title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120",sets:"1",reps:"10:00",details:"Заминка"}]}]},pavel:{1:[{ex:[{title:"(пока пусто)",sets:"—",reps:"—"}]}],2:[{ex:[{title:"(пока пусто)",sets:"—",reps:"—"}]}],3:[{ex:[{title:"(пока пусто)",sets:"—",reps:"—"}]}]}};
-let currentPerson=null,currentDay=1,pageIndex=0;
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function openPerson(p){currentPerson=p;document.getElementById('personTitle').textContent=p==='yulia'?'Юлия':'Павел';show('person');}
-function goHome(){show('home');} function goPerson(){show('person');}
-function openDay(d){currentDay=d;pageIndex=0;document.getElementById('dayTitle').textContent=`День ${d}`;renderPage();show('day');}
-function getPages(){return programs[currentPerson][currentDay]||[];}
-function renderPage(){const pages=getPages();if(!pages.length)return;pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));const {ex,note}=pages[pageIndex];
-const el=document.getElementById('pages');el.innerHTML=ex.map(i=>`<div class="ex"><h3><span class="dot"></span>${i.title}</h3><div class="meta"><div>Подходы: <b>${i.sets}</b></div><div>Повторы: <b>${i.reps}</b></div>${i.details?`<div>${i.details}</div>`:''}</div></div>`).join('');
-document.getElementById('counter').textContent=`${pageIndex+1} / ${pages.length}`;document.getElementById('note').textContent=note||'';document.getElementById('prevBtn').disabled=(pageIndex===0);document.getElementById('nextBtn').disabled=(pageIndex===pages.length-1);}
-function nextPage(){pageIndex++;renderPage();} function prevPage(){pageIndex--;renderPage();}
-(function(){const card=document.getElementById('pageCard');let x0=null,t0=0;const TH=40,TM=500;
-card.addEventListener('touchstart',e=>{const t=e.changedTouches[0];x0=t.clientX;t0=Date.now();},{passive:true});
-card.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dt=Date.now()-t0;if(dt<TM&&Math.abs(dx)>TH){if(dx<0)nextPage();else prevPage();}x0=null;},{passive:true});})();
+// ---- DATA ----
+// ex item: {title, sets, reps, group, details?, extra?}
+const programs = {
+  yulia: {
+    1: [
+      { ex:[
+        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Разминка, произвольный темп"}
+      ]},
+      { ex:[
+        {title:"[Тренажёр] Жим ногами (наклонный, верх платформы, широкая стойка)", sets:"4", reps:"15–20", group:"Квадрицепсы, ягодичные", details:"Темп 3:1", extra:"Колени в стороны, упор в пятки"},
+        {title:"[Тренажёр] Разведения бёдер (+эспандер), отклонившись назад", sets:"4", reps:"15–20", group:"Средняя и малая ягодичные", details:"Пауза 2\" в пиковой точке"}
+      ], note:"Отдых: до 30 с между упражнениями, до 3 мин между сетами"},
+      { ex:[
+        {title:"[Нижний блок] Сгибания голени стоя в наклоне (одной ногой)", sets:"4", reps:"20/20", group:"Бицепс бедра, икроножные", details:"Пауза 2\" в момент сгибания"},
+        {title:"[Нижний блок] Хинчи (с ротацией таза)", sets:"4", reps:"20/20", group:"Ягодичные, разгибатели спины", details:"Темп 2:2"}
+      ], note:"Отдых: до 30 с / до 3 мин"},
+      { ex:[
+        {title:"[Верхний блок] Тяга к груди сидя (средний нейтральный хват)", sets:"4", reps:"15–20", group:"Широчайшие, задняя дельта, бицепс", details:"Взрывная тяга, возврат 3 счёта"},
+        {title:"[Нижний блок] Тяга к поясу сидя (средний нейтральный хват)", sets:"4", reps:"12–15", group:"Широчайшие, ромбовидные, трапеция", details:"Темп 1:3"}
+      ], note:"Отдых: до 30 с / до 3 мин"},
+      { ex:[
+        {title:"[Свой вес] Отжимания (широкая постановка / с коленей)", sets:"4", reps:"12–15", group:"Грудные, передняя дельта, трицепс", details:"Темп 3:1"},
+        {title:"[Гантели] Круговые разведения стоя", sets:"4", reps:"15–20", group:"Дельтовидные (средняя/передняя)", details:"Темп 1:3"}
+      ], note:"Отдых: до 30 с / до 3 мин"},
+      { ex:[
+        {title:"[Свой вес] Прямые скручивания лёжа (ноги на весу, 90°)", sets:"3", reps:"15–20", group:"Прямая мышца живота", details:"Прожимка 1–2\""}
+      ], note:"Минимально возможный отдых"},
+      { ex:[
+        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Заминка"}
+      ]}
+    ],
+    2: [
+      { ex:[
+        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Разминка"}
+      ]},
+      { ex:[
+        {title:"[Смит] Фронтальные зашагивания на платформу (без возврата стопы)", sets:"4", reps:"15/15", group:"Ягодичные, квадрицепсы", details:"Средний бокс; темп 2:2"},
+        {title:"[Тренажёр] Гиперэкстензия (колени прямые, стопы параллельны)", sets:"4", reps:"12–15", group:"Разгибатели спины, ягодичные", details:"Пауза 2\""}
+      ], note:"Отдых: до 30 с / до 3 мин"},
+      { ex:[
+        {title:"[Гиря/гантель] Гоблет‑приседания", sets:"4", reps:"15–20", group:"Квадрицепсы, ягодичные, кора", details:"Темп 2:2"},
+        {title:"[Гиря/гантель] Мёртвая тяга на одной ноге («ласточка»)", sets:"4", reps:"15/15", group:"Ягодичные, задняя поверхность бедра, кора", details:"Темп 3:1; колено опорной прямое"}
+      ], note:"Отдых: до 30 с / до 3 мин"},
+      { ex:[
+        {title:"[Нижний блок] Тяга к поясу стоя в наклоне (средний обратный хват)", sets:"4", reps:"12–15", group:"Широчайшие, ромбовидные, бицепс", details:"Темп 1:3"},
+        {title:"[Пек‑дек] Поочерёдные сведения рук (сидя, наклон 90°)", sets:"4", reps:"24–30", group:"Грудные", details:"Темп 2:2"}
+      ], note:"Отдых: до 30 с / до 3 мин"},
+      { ex:[
+        {title:"[Гравитрон] Подтягивания (широкий прямой хват)", sets:"4", reps:"12–15", group:"Широчайшие, бицепс", details:"Темп 1:3"},
+        {title:"[Гантели] Подъёмы перед собой с последующим разведением (сидя, 80°)", sets:"4", reps:"15–20", group:"Дельтовидные (передняя/средняя)", details:"Темп 2:2"}
+      ], note:"Отдых: до 30 с / до 3 мин"},
+      { ex:[
+        {title:"[Свой вес] Глубокие диагональные скручивания (ноги на скамье)", sets:"3", reps:"20/20", group:"Косые мышцы живота", details:"Темп 1:1 (быстро)"}
+      ]},
+      { ex:[
+        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Заминка"}
+      ]}
+    ],
+    3: [
+      { ex:[
+        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Разминка"}
+      ]},
+      { ex:[
+        {title:"[Штанга] Становая тяга «сумо»", sets:"4", reps:"12–20", group:"Ягодичные, приводящие, квадрицепсы", details:"Темп 1:1 (быстрый)"},
+        {title:"[Свой вес] Наклоны с подседом на одной ноге на платформе (с опорой)", sets:"4", reps:"25/25", group:"Ягодичные, квадрицепсы, кора", details:"Темп 2:2", extra:"В какой руке гантель — на ту ногу опора"}
+      ]},
+      { ex:[
+        {title:"[Штанга] Мёртвая тяга (ноги почти прямые)", sets:"4", reps:"12–15", group:"Задняя поверхность бедра, ягодичные, разгибатели спины", details:"Темп 3:1; без прогиба в пояснице"},
+        {title:"[Нижний блок] Отведения бедра стоя (стопа нейтральна)", sets:"4", reps:"20/20", group:"Средняя ягодичная", details:"Темп 2:2"}
+      ]},
+      { ex:[
+        {title:"[Верхний блок] Тяга к груди сидя (узкий обратный хват)", sets:"4", reps:"10+10", group:"Широчайшие, бицепс, задняя дельта", details:"Пауза 2\" в момент сокращения"},
+        {title:"[Гантели] Отведения плеч стоя", sets:"4", reps:"15–20", group:"Средняя дельта", details:"Темп 2:2"}
+      ], note:"Локти над плечом; движение из плеча"},
+      { ex:[
+        {title:"[Рычажный] Горизонтальная тяга одной рукой (высокая посадка)", sets:"4", reps:"15/15", group:"Широчайшие, ромбовидные, задняя дельта", details:"Темп 1:3"},
+        {title:"[Гантели] Жим лёжа под 30° одной рукой (прямой хват)", sets:"4", reps:"30", group:"Грудные, передняя дельта, трицепс", details:"Поочерёдно по 5 повторений на руку"}
+      ]},
+      { ex:[
+        {title:"[Роллер] Прокат с коленей", sets:"3", reps:"20–30", group:"Пресс, разгибатели спины", details:"Темп 1:1"}
+      ], note:"Минимально возможный отдых"},
+      { ex:[
+        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Заминка"}
+      ]}
+    ]
+  },
+  pavel: {
+    1:[{ ex:[{title:"(пока пусто)", sets:"—", reps:"—", group:"—"}] }],
+    2:[{ ex:[{title:"(пока пусто)", sets:"—", reps:"—", group:"—"}] }],
+    3:[{ ex:[{title:"(пока пусто)", sets:"—", reps:"—", group:"—"}] }]
+  }
+};
+
+// ---- STATE ----
+let currentPerson = null;
+let currentDay = 1;
+let pageIndex = 0;
+let precomputedLabels = [];
+
+// ---- NAV ----
+function show(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+}
+
+document.getElementById('btnPavel').addEventListener('click', () => openPerson('pavel'));
+document.getElementById('btnYulia').addEventListener('click', () => openPerson('yulia'));
+document.getElementById('backHome').addEventListener('click', () => goHome());
+document.getElementById('backPerson').addEventListener('click', () => goPerson());
+document.getElementById('day1').addEventListener('click', () => openDay(1));
+document.getElementById('day2').addEventListener('click', () => openDay(2));
+document.getElementById('day3').addEventListener('click', () => openDay(3));
+document.getElementById('prevBtn').addEventListener('click', () => { pageIndex--; renderPage(); });
+document.getElementById('nextBtn').addEventListener('click', () => { pageIndex++; renderPage(); });
+
+function openPerson(person){
+  currentPerson = person;
+  document.getElementById('personTitle').textContent = person === 'yulia' ? 'Юлия' : 'Павел';
+  show('person');
+}
+function goHome(){ show('home'); }
+function goPerson(){ show('person'); }
+
+function openDay(day){
+  currentDay = day;
+  pageIndex = 0;
+  document.getElementById('dayTitle').textContent = "День " + day;
+  // Precompute labels for pages
+  const pages = getPages();
+  let setCount = 0, exCount = 0;
+  precomputedLabels = pages.map((p, idx) => {
+    const isFirst = idx === 0;
+    const isLast = idx === pages.length - 1;
+    if (isFirst) return "Разминка";
+    if (isLast) return "Заминка";
+    if (p.ex && p.ex.length === 2) { setCount++; return "Сет " + setCount; }
+    exCount++;
+    return "Упражнение " + exCount;
+  });
+  renderPage();
+  show('day');
+}
+
+// ---- RENDER PAGE ----
+function getPages(){ return programs[currentPerson][currentDay] || []; }
+function renderPage(){
+  const pages = getPages();
+  if(!pages.length) return;
+  pageIndex = Math.max(0, Math.min(pageIndex, pages.length - 1));
+  const { ex, note } = pages[pageIndex];
+  const el = document.getElementById('pages');
+  el.innerHTML = ex.map(i => `
+    <div class="ex">
+      <h3><span class="dot"></span>${i.title}</h3>
+      <div class="meta">
+        <div>Подходы: <b>${i.sets}</b></div>
+        <div>Повторы: <b>${i.reps}</b></div>
+        <div>Группа: <b>${i.group}</b></div>
+        ${i.details ? `<div>${i.details}</div>` : ''}
+      </div>
+      ${i.extra ? `<div class="extra">${i.extra}</div>` : ''}
+    </div>
+  `).join('');
+  document.getElementById('counter').textContent = `${pageIndex + 1} / ${pages.length}`;
+  document.getElementById('note').textContent = note || '';
+  document.getElementById('dayLabel').textContent = precomputedLabels[pageIndex] || "";
+  document.getElementById('prevBtn').disabled = (pageIndex === 0);
+  document.getElementById('nextBtn').disabled = (pageIndex === pages.length - 1);
+}
+
+// ---- SWIPE ----
+(function attachSwipe(){
+  const card = document.getElementById('pageCard');
+  let x0 = null, t0 = 0;
+  const THRESHOLD = 40, TIME = 500;
+  card.addEventListener('touchstart', e => { const t = e.changedTouches[0]; x0 = t.clientX; t0 = Date.now(); }, {passive:true});
+  card.addEventListener('touchend', e => {
+    if (x0 == null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    const dt = Date.now() - t0;
+    if (dt < TIME && Math.abs(dx) > THRESHOLD){ if (dx < 0) { pageIndex++; } else { pageIndex--; } renderPage(); }
+    x0 = null;
+  }, {passive:true});
+})();
 </script>
-</body>
-</html>
+
+
+</body></html>

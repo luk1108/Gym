@@ -1,4 +1,4 @@
-<html lang="ru" data-theme="light"><head>
+<html lang="ru" data-theme="dark"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Тренировки</title>
@@ -6,26 +6,61 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Тренировки">
 <style>
-:root{--bg:#0f1115;--fg:#e9eef5;--muted:#9aa5b1;--card:#171b25;--primary:#6aa7ff;--good:#41d27a;--warn:#ffcc66;--accent:#ff7ad9;--stroke:rgba(255,255,255,.10)}
-@media (prefers-color-scheme: light){:root{--bg:#f5f7fb;--fg:#0f172a;--muted:#475569;--card:#ffffff;--primary:#2e5cff;--good:#22c55e;--warn:#f59e0b;--accent:#db2777;--stroke:rgba(0,0,0,.08)}}
-:root[data-theme='light']{--bg:#f5f7fb;--fg:#0f172a;--muted:#475569;--card:#ffffff;--primary:#2e5cff;--good:#22c55e;--warn:#f59e0b;--accent:#db2777;--stroke:rgba(0,0,0,.08)}
+:root{
+  --bg:#0f1115; --fg:#e9eef5; --muted:#9aa5b1; --card:#171b25;
+  --primary:#6aa7ff; --good:#41d27a; --warn:#ffcc66; --accent:#ff7ad9;
+  --stroke:rgba(255,255,255,.10);
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f5f7fb; --fg:#0f172a; --muted:#475569; --card:#ffffff;
+    --primary:#2e5cff; --good:#22c55e; --warn:#f59e0b; --accent:#db2777;
+    --stroke:rgba(0,0,0,.08);
+  }
+}
+:root[data-theme='light']{
+  --bg:#f5f7fb; --fg:#0f172a; --muted:#475569; --card:#ffffff;
+  --primary:#2e5cff; --good:#22c55e; --warn:#f59e0b; --accent:#db2777;
+  --stroke:rgba(0,0,0,.08);
+}
+:root[data-theme='dark']{
+  --bg:#0f1115; --fg:#e9eef5; --muted:#bcc4cf; --card:#171b25;
+  --primary:#84b6ff; --good:#44e08a; --warn:#ffd27a; --accent:#ff99e3;
+  --stroke:rgba(255,255,255,.14);
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-serif;color:var(--fg);background:radial-gradient(1200px 800px at 10% -10%, rgba(255,122,217,.25), transparent 40%),radial-gradient(900px 700px at 110% 0%, rgba(106,167,255,.20), transparent 40%),radial-gradient(1200px 900px at 50% 120%, rgba(65,210,122,.15), transparent 40%),var(--bg)}
-.container{padding:calc(env(safe-area-inset-top) + 18px) 18px 18px}
-.row{display:grid;grid-template-columns:1fr;gap:12px}
-.header{display:flex;align-items:center;gap:10px;margin-bottom:12px}.spacer{flex:1}
-.iconbtn{appearance:none;border:1px solid var(--stroke);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 10px;cursor:pointer;transition:transform .05s ease, background .2s ease}
-.iconbtn:active{transform:scale(0.96);background:color-mix(in oklab, var(--primary) 20%, var(--card) 80%)}.iconbtn.on{background:color-mix(in oklab, var(--accent) 22%, var(--card) 78%)}
-.btn{display:block;width:100%;margin:8px 0;padding:14px 16px;border:1px solid var(--stroke);background:linear-gradient(180deg, var(--card), color-mix(in oklab, var(--card) 60%, black 20%));color:var(--fg);border-radius:12px;font-size:17px;text-align:center;cursor:pointer}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-serif;color:var(--fg);background:
+  radial-gradient(1200px 800px at 10% -10%, rgba(255,122,217,.25), transparent 40%),
+  radial-gradient(900px 700px at 110% 0%, rgba(106,167,255,.20), transparent 40%),
+  radial-gradient(1200px 900px at 50% 120%, rgba(65,210,122,.15), transparent 40%),
+  var(--bg)}
+.container{padding:calc(env(safe-area-inset-top) + 14px) 14px 14px}
+.row{display:grid;grid-template-columns:1fr;gap:10px}
+.header{display:flex;align-items:center;gap:8px;margin-bottom:10px}.spacer{flex:1}
+.iconbtn{appearance:none;border:1px solid var(--stroke);background:var(--card);color:var(--fg);border-radius:10px;padding:6px 8px;cursor:pointer;transition:transform .05s ease, background .2s ease}
+.iconbtn:active{transform:scale(0.96);background:color-mix(in oklab, var(--primary) 20%, var(--card) 80%)}.iconbtn.on{background:color-mix(in oklab, var(--accent) 25%, var(--card) 75%)}
+.btn{display:block;width:100%;margin:6px 0;padding:12px 14px;border:1px solid var(--stroke);background:linear-gradient(180deg, var(--card), color-mix(in oklab, var(--card) 60%, black 20%));color:var(--fg);border-radius:12px;font-size:16px;text-align:center;cursor:pointer}
 .btn.primary{background:linear-gradient(180deg, color-mix(in oklab, var(--primary) 65%, white 15%), var(--primary));border:none;color:#fff}.btn.good{background:linear-gradient(180deg, color-mix(in oklab, var(--good) 65%, white 10%), var(--good));border:none;color:#001b0c}
-.screen{display:none}.screen.active{display:block}.card{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
-.ex{border:1px dashed var(--stroke);border-radius:12px;padding:12px;margin-bottom:10px}.meta{color:var(--muted);font-size:14px;display:flex;gap:14px;flex-wrap:wrap}
-.extra{color:#e34b4b;font-size:13px;margin-top:6px}.label{font-size:13px;color:#003b89;background:color-mix(in oklab, var(--primary) 20%, white 80%);border:1px solid color-mix(in oklab, var(--primary) 60%, black 10%);padding:6px 10px;border-radius:999px;display:inline-block;margin-bottom:10px}
-.pager{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px}.pill{color:var(--fg);background:color-mix(in oklab, var(--accent) 15%, white 85%);border:1px solid var(--stroke);border-radius:999px;padding:6px 10px;font-size:13px}
-.dot{width:8px;height:8px;border-radius:8px;background:var(--good);display:inline-block;margin-right:6px}.sets{display:flex;gap:6px;flex-wrap:nowrap;margin-top:8px;overflow-x:auto}
-.sets .set{display:flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid var(--stroke);border-radius:10px;background:color-mix(in oklab, var(--good) 8%, white 92%);flex:0 0 auto;white-space:nowrap}
-.sets .set input{width:18px;height:18px}.weight{margin-top:8px;display:flex;align-items:center;gap:8px}
-.weight input{flex:0 0 110px;padding:10px;border:1px solid var(--stroke);border-radius:10px;background:transparent;color:var(--fg);font-size:18px}
+.screen{display:none}.screen.active{display:block}.card{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:12px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.ex{border:1px dashed var(--stroke);border-radius:12px;padding:10px;margin-bottom:8px}
+.ex h3{font-size:17px;margin:0 0 2px;line-height:1.2}
+.meta{color:var(--muted);font-size:14px;display:flex;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.extra{color:#ff7a7a;font-size:13px;margin:2px 0 6px}
+.label{font-size:12px;color:#003b89;background:color-mix(in oklab, var(--primary) 20%, white 80%);border:1px solid color-mix(in oklab, var(--primary) 60%, black 10%);padding:4px 8px;border-radius:999px;display:inline-block;margin-bottom:8px}
+.pager{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px}
+.pill{color:var(--fg);background:rgba(255,255,255,.18);border:1px solid var(--stroke);border-radius:999px;padding:4px 10px;font-size:12px}
+:root[data-theme='light'] .pill{background:rgba(0,0,0,.06)}
+.dot{width:7px;height:7px;border-radius:8px;background:var(--good);display:inline-block;margin-right:6px}
+.sets{display:flex;gap:6px;flex-wrap:nowrap;margin-top:6px;overflow-x:auto}
+.sets .set{display:flex;align-items:center;gap:6px;padding:4px 6px;border:1px solid var(--stroke);border-radius:10px;background:rgba(255,255,255,.08);flex:0 0 auto;white-space:nowrap;color:var(--fg)}
+:root[data-theme='light'] .sets .set{background:rgba(0,0,0,.04)}
+.sets .set input{width:18px;height:18px;accent-color:var(--good)}
+.weight{margin-top:6px;display:flex;align-items:center;gap:8px}
+.weight input{flex:0 0 100px;padding:8px;border:1px solid var(--stroke);border-radius:10px;background:transparent;color:var(--fg);font-size:18px}
+.list{display:grid;gap:8px}
+.item{padding:8px;border:1px solid var(--stroke);border-radius:10px;background:var(--card);font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.item button{border:1px solid var(--stroke);background:transparent;color:var(--fg);border-radius:8px;padding:4px 8px;cursor:pointer}
+.chart{width:100%;height:220px;background:color-mix(in oklab, var(--primary) 8%, white 92%);border:1px solid var(--stroke);border-radius:12px}
 </style>
 </head>
 <body>
@@ -34,10 +69,9 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-s
       <div class="header">
         <h1>Тренировки</h1>
         <span class="spacer"></span>
-        <button id="btnTheme" class="iconbtn on" title="Тема">🌞</button>
-        <button id="btnHistory" class="iconbtn" title="История">📈</button>
+        <button id="btnTheme" class="iconbtn" title="Тема">🌙</button>
+        <button id="btnHistory" class="iconbtn" title="Прогресс">📈</button>
       </div>
-      <div class="subtitle">Выберите спортсмена</div>
       <div class="row">
         <button id="btnPavel" class="btn primary">Павел</button>
         <button id="btnYulia" class="btn good">Юлия</button>
@@ -60,7 +94,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-s
     <section id="day" class="screen">
       <div class="header">
         <button id="backPerson" class="iconbtn">‹ Назад</button>
-        <h2 id="dayTitle">День 1</h2>
+        <h2 id="dayTitle">День 2</h2>
         <span class="spacer"></span>
         <span class="pill" id="timeLeftPill">≈ 1:30 осталось</span>
         <button id="btnResetDay" class="iconbtn" title="Сброс прогресса дня">♻️</button>
@@ -68,13 +102,29 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-s
       </div>
 
       <div class="card" id="pageCard">
-        <div id="dayLabel" class="label"></div>
-        <div id="pages"></div>
+        <div id="dayLabel" class="label">Упражнение 1</div>
+        <div id="pages"><div class="ex"><h3><span class="dot"></span>Диагональные скручивания</h3><div class="meta"><div>Подходы: <b>3</b></div><div>Повторы: <b>20/20</b></div><div>Группа: <b>Пресс</b></div></div><div class="sets"><label class="set"><input type="checkbox" data-k="s|yulia|2|5|0|1"> Сет 1</label><label class="set"><input type="checkbox" data-k="s|yulia|2|5|0|2"> Сет 2</label><label class="set"><input type="checkbox" data-k="s|yulia|2|5|0|3"> Сет 3</label></div></div></div>
         <div class="pager">
           <button class="btn ghost" id="prevBtn">◀︎ Назад</button>
-          <div class="pill" id="counter">1 / 1</div>
+          <div class="pill" id="counter">6 / 7</div>
           <button class="btn ghost" id="nextBtn">Вперёд ▶︎</button>
         </div>
+      </div>
+    </section>
+
+    <section id="history" class="screen">
+      <div class="header">
+        <button id="backHome2" class="iconbtn">‹ Назад</button>
+        <h2>Прогресс</h2>
+      </div>
+      <div class="card">
+        <h3>Последние тренировки</h3>
+        <div id="historyList" class="list"><div class="item"><span>28.09.2025 · Юлия · День 2 — Беговая дорожка — 1/1; Фронтальные зашагивания — 4/4 · 30 кг; Гиперэкстензия — 4/4 …</span><button data-index="0">Удалить</button></div><div class="item"><span>28.09.2025 · Юлия · День 1 — Беговая дорожка — 1/1; Жим ногами — 4/4 · 20 кг; Разведения бёдер — 4/4 …</span><button data-index="1">Удалить</button></div><div class="item"><span>28.09.2025 · Юлия · День 1 — Беговая дорожка — 1/1; Жим ногами — 4/4; Разведения бёдер — 4/4 …</span><button data-index="2">Удалить</button></div><div class="item"><span>28.09.2025 · Юлия · День 1 — Беговая дорожка — 0/1; Жим ногами — 0/4; Разведения бёдер — 0/4 …</span><button data-index="3">Удалить</button></div></div>
+      </div>
+      <div class="card" style="margin-top:10px">
+        <h3>Аналитика по упражнению</h3>
+        <select id="exerciseSelect" class="btn ghost"><option value="Гоблет-приседания">Гоблет-приседания</option><option value="Жим ногами">Жим ногами</option><option value="Мёртвая тяга на одной ноге">Мёртвая тяга на одной ноге</option><option value="Пек-дек">Пек-дек</option><option value="Тяга к поясу стоя">Тяга к поясу стоя</option><option value="Фронтальные зашагивания">Фронтальные зашагивания</option></select>
+        <canvas id="chart" class="chart" width="1116" height="654"></canvas>
       </div>
     </section>
   </div>
@@ -108,8 +158,12 @@ let currentPerson = null;
 let currentDay = 1;
 let pageIndex = 0;
 let precomputedLabels = [];
+let advanceTimer = null;
 
 function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+document.getElementById('btnHistory').addEventListener('click', ()=>{ renderHistory(); show('history'); });
+document.getElementById('backHome2').addEventListener('click', ()=> show('home'));
+
 document.getElementById('backHome').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); show('home'); });
 document.getElementById('btnPavel').addEventListener('click', ()=>openPerson('pavel'));
 document.getElementById('btnYulia').addEventListener('click', ()=>openPerson('yulia'));
@@ -119,7 +173,7 @@ document.getElementById('day3').addEventListener('click', ()=>openDay(3));
 document.getElementById('prevBtn').addEventListener('click', ()=>{pageIndex--;renderPage();});
 document.getElementById('nextBtn').addEventListener('click', ()=>{pageIndex++;renderPage();});
 document.getElementById('backPerson').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); show('person'); });
-document.getElementById('btnResetDay').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); resetDay(); });
+document.getElementById('btnResetDay').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); resetDay(false); });
 document.getElementById('btnFinish').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); finishDay(); });
 
 function openPerson(p){ currentPerson=p; document.getElementById('personTitle').textContent = p==='yulia'?'Юлия':'Павел'; show('person'); }
@@ -138,9 +192,12 @@ function keyWeight(person, day, page, exIdx){ return `w|${person}|${day}|${page}
 function keySet(person, day, page, exIdx, setIdx){ return `s|${person}|${day}|${page}|${exIdx}|${setIdx}`; }
 function parseSets(setsStr){ const m = String(setsStr||'').match(/(\d+)/); return m ? Math.max(1, parseInt(m[1],10)) : 1; }
 function needsWeight(title){ const t=String(title).toLowerCase(); if(t.includes('беговая дорожка')||t.includes('скручив')||t.includes('роллер')) return false; return true; }
+function isWarmup(it){ return /Разминка/i.test(it.details||''); }
+function isCooldown(it){ return /Заминка/i.test(it.details||''); }
 
 function renderPage(){
   const pages = getPages(); if(!pages.length) return;
+  if(advanceTimer){ clearTimeout(advanceTimer); advanceTimer=null; }
   pageIndex = Math.max(0, Math.min(pageIndex, pages.length-1));
   const page = pages[pageIndex];
   const pagesEl = document.getElementById('pages');
@@ -166,3 +223,161 @@ function renderPage(){
 
     const details = it.details ? ('<div>'+it.details+'</div>') : '';
     const extra = it.extra ? ('<div class="extra">'+it.extra+'</div>') : '';
+
+    return '<div class="ex">'
+      + '<h3><span class="dot"></span>'+it.title+'</h3>'
+      + '<div class="meta">'
+      + '<div>Подходы: <b>'+it.sets+'</b></div>'
+      + '<div>Повторы: <b>'+(it.reps||'-')+'</b></div>'
+      + '<div>Группа: <b>'+(it.group||'-')+'</b></div>'
+      + details
+      + '</div>'
+      + extra
+      + setsHtml
+      + weightHtml
+      + '</div>';
+  });
+  pagesEl.innerHTML = blocks.join('');
+
+  // handlers
+  pagesEl.querySelectorAll('input[type="checkbox"]').forEach(cb=>{ 
+    cb.addEventListener('change', (e)=> { 
+      localStorage.setItem(e.target.dataset.k, e.target.checked?'1':'0'); 
+      updateTimeLeft(); 
+      scheduleAutoAdvance();
+    }); 
+  });
+  pagesEl.querySelectorAll('.weight input').forEach(inp=>{ inp.addEventListener('change', (e)=> { const v = (e.target.value||'').replace(',', '.').trim(); localStorage.setItem(e.target.dataset.wk, v); }); });
+
+  document.getElementById('counter').textContent = (pageIndex+1)+' / '+pages.length;
+  document.getElementById('dayLabel').textContent = precomputedLabels[pageIndex] || '';
+  document.getElementById('prevBtn').disabled = (pageIndex===0);
+  document.getElementById('nextBtn').disabled = (pageIndex===pages.length-1);
+  updateTimeLeft();
+}
+
+function scheduleAutoAdvance(){
+  if(advanceTimer){ clearTimeout(advanceTimer); advanceTimer=null; }
+  const sets = Array.from(document.querySelectorAll('#pages input[type="checkbox"]'));
+  if(!sets.length) return;
+  const allChecked = sets.every(cb => cb.checked);
+  if(allChecked){
+    advanceTimer = setTimeout(()=>{
+      if(navigator.vibrate) try{ navigator.vibrate(30); }catch(_){}
+      const total = getPages().length;
+      if(pageIndex < total-1){ pageIndex++; renderPage(); }
+    }, 1000);
+  }
+}
+
+// TIME LEFT
+const DUR = { perSet: 2, warmup: 10, cooldown: 10 };
+function computeTimeLeft(){
+  const pages = getPages(); if(!pages.length) return {total:90, done:0, left:90};
+  let totalSets = 0, doneSets = 0, warmupTotal=0, warmupDone=0, cooldownTotal=0, cooldownDone=0;
+  for(let p=0;p<pages.length;p++){
+    const exs = pages[p].ex || [];
+    for(let i=0;i<exs.length;i++){
+      const it = exs[i]; const sets = parseSets(it.sets);
+      if(isWarmup(it)){
+        warmupTotal += DUR.warmup;
+        if(localStorage.getItem(keySet(currentPerson,currentDay,p,i,1))==='1') warmupDone += DUR.warmup;
+      } else if(isCooldown(it)){
+        cooldownTotal += DUR.cooldown;
+        if(localStorage.getItem(keySet(currentPerson,currentDay,p,i,1))==='1') cooldownDone += DUR.cooldown;
+      } else {
+        totalSets += sets;
+        for(let s=1;s<=sets;s++){ if(localStorage.getItem(keySet(currentPerson,currentDay,p,i,s))==='1') doneSets++; }
+      }
+    }
+  }
+  const total = warmupTotal + cooldownTotal + totalSets * DUR.perSet;
+  const done = warmupDone + cooldownDone + doneSets * DUR.perSet;
+  return { total: Math.round(total), done: Math.round(done), left: Math.max(0, Math.round(total-done)) };
+}
+function fmt(mins){ const h=Math.floor(mins/60), m=mins%60; return (h>0? (h+':'+String(m).padStart(2,'0')) : (m+' мин')); }
+function updateTimeLeft(){ const pill=document.getElementById('timeLeftPill'); if(!pill) return; const {left}=computeTimeLeft(); pill.textContent='≈ '+fmt(left)+' осталось'; }
+
+// RESET & FINISH
+function resetDay(skipConfirm){
+  if(!skipConfirm){
+    const ok = confirm('Сбросить отметки подходов и веса за текущий день?');
+    if(!ok) return;
+  }
+  const pages = getPages();
+  for(let p=0;p<pages.length;p++){
+    const exs = pages[p].ex || [];
+    for(let i=0;i<exs.length;i++){
+      const it = exs[i];
+      const sets = parseSets(it.sets);
+      localStorage.removeItem(keyWeight(currentPerson,currentDay,p,i));
+      for(let s=1;s<=sets;s++){ localStorage.removeItem(keySet(currentPerson,currentDay,p,i,s)); }
+    }
+  }
+  renderPage();
+  if(!skipConfirm) alert('Прогресс дня очищен ✅');
+}
+function finishDay(){
+  const pages = getPages(); const items=[];
+  for(let p=0;p<pages.length;p++){ const exs=pages[p].ex||[]; for(let i=0;i<exs.length;i++){ const it=exs[i]; const sets=parseSets(it.sets);
+    let done=0; for(let s=1;s<=sets;s++){ if(localStorage.getItem(keySet(currentPerson,currentDay,p,i,s))==='1') done++; }
+    const weight = needsWeight(it.title) ? (localStorage.getItem(keyWeight(currentPerson,currentDay,p,i))||'') : '';
+    items.push({title:it.title, sets, done, weight});
+  }};
+  const entry = {ts:Date.now(), person:currentPerson, day:currentDay, items};
+  const arr = JSON.parse(localStorage.getItem('history.v1')||'[]'); arr.unshift(entry); while(arr.length>20) arr.pop();
+  localStorage.setItem('history.v1', JSON.stringify(arr));
+  resetDay(true);
+  alert('Тренировка завершена ✅');
+  show('home');
+}
+
+// HISTORY
+function renderHistory(){
+  const key='history.v1'; const arr = JSON.parse(localStorage.getItem(key) || '[]');
+  const list = document.getElementById('historyList'); list.innerHTML='';
+  if(!arr.length){ list.innerHTML='<div class="item"><span>Пока нет записей. Нажимайте ✅ на экране тренировки.</span></div>'; return; }
+  arr.forEach((entry, idx)=>{ const d = new Date(entry.ts);
+    const head = d.toLocaleDateString()+' · '+(entry.person==='yulia'?'Юлия':'Павел')+' · День '+entry.day;
+    const summary = entry.items.map(x=>x.title+' — '+x.done+'/'+x.sets+(x.weight?(' · '+x.weight+' кг'):'')).slice(0,3).join('; ') + (entry.items.length>3?' …':'');
+    const div = document.createElement('div'); div.className='item';
+    const span = document.createElement('span'); span.textContent=head+' — '+summary;
+    const del = document.createElement('button'); del.textContent='Удалить'; del.dataset.index=idx;
+    del.addEventListener('click', ()=>{ deleteHistory(idx); });
+    div.appendChild(span); div.appendChild(del);
+    list.appendChild(div);
+  });
+  const sel = document.getElementById('exerciseSelect'); sel.innerHTML='';
+  const names = new Set(); arr.forEach(e=>e.items.forEach(i=>{ if(i.weight) names.add(i.title); }));
+  Array.from(names).sort().forEach(n=>{ const opt=document.createElement('option'); opt.value=n; opt.textContent=n; sel.appendChild(opt); });
+  sel.onchange = drawChart; drawChart();
+}
+function deleteHistory(index){
+  const key='history.v1'; const arr = JSON.parse(localStorage.getItem(key)||'[]');
+  if(index>=0 && index<arr.length){ arr.splice(index,1); localStorage.setItem(key, JSON.stringify(arr)); renderHistory(); }
+}
+function drawChart(){
+  const key='history.v1'; const arr=JSON.parse(localStorage.getItem(key)||'[]');
+  const sel = document.getElementById('exerciseSelect'); const name = sel.value || (sel.options[0]?.value || '');
+  const data = []; arr.forEach(e=>{ const it = e.items.find(x=>x.title===name); if(it && it.weight){ const y=parseFloat(String(it.weight).replace(',', '.')); if(!isNaN(y)) data.push({x:new Date(e.ts), y}); }});
+  const canvas = document.getElementById('chart'); const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const dpr = window.devicePixelRatio || 1; const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = Math.floor(w*dpr); canvas.height = Math.floor(h*dpr); ctx.scale(dpr,dpr);
+  const pad=30; const innerW=w-pad*2, innerH=h-pad*2; ctx.save(); ctx.translate(pad,pad);
+  ctx.strokeStyle='rgba(0,0,0,0.15)';
+  for(let i=0;i<=4;i++){ const y=i*innerH/4; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(innerW,y); ctx.stroke(); }
+  if(data.length){ const xs=data.map(d=>d.x.getTime()); const ys=data.map(d=>d.y);
+    const minX=Math.min(...xs), maxX=Math.max(...xs)||1; const minY=Math.min(...ys), maxY=Math.max(...ys)||1;
+    const tx=v=> innerW*(v-minX)/((maxX-minX)||1); const ty=v=> innerH - innerH*(v-minY)/((maxY-minY)||1);
+    ctx.lineWidth=2; ctx.strokeStyle='rgba(219,39,119,0.95)'; ctx.beginPath();
+    data.sort((a,b)=>a.x-b.x).forEach((d,i)=>{ const X=tx(d.x.getTime()), Y=ty(d.y); if(i) ctx.lineTo(X,Y); else ctx.moveTo(X,Y); });
+    ctx.stroke(); ctx.fillStyle='rgba(34,197,94,0.95)';
+    data.forEach(d=>{ const X=tx(d.x.getTime()), Y=ty(d.y); ctx.beginPath(); ctx.arc(X,Y,3,0,Math.PI*2); ctx.fill(); });
+  } else { ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fillText('Нет данных по весам', 10, 20); }
+  ctx.restore();
+}
+</script>
+
+
+</body></html>

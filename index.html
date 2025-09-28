@@ -1,311 +1,255 @@
-<html lang="ru"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Тренировки</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Тренировки">
-  <style>
-    :root {
-      --pad: 18px;
-      --bg: #0f1115;
-      --card: #171a21;
-      --txt: #e9eef5;
-      --muted: #9aa5b1;
-      --acc: #4da3ff;
-      --acc2:#7ce38b;
-      --radius: 14px;
-    }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-      color: var(--txt);
-      background: radial-gradient(1200px 800px at 30% -10%, #172036 0%, #0f1115 40%) no-repeat, var(--bg);
-    }
-    .container { padding: calc(env(safe-area-inset-top) + var(--pad)) var(--pad) var(--pad) var(--pad); }
-    h1,h2,h3 { margin: 0 0 8px 0; }
-    h1 { letter-spacing:.2px; }
-    .subtitle { color: var(--muted); margin-bottom: 16px; }
-    .row { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .btn {
-      display: block; width: 100%;
-      border: 1px solid rgba(255,255,255,.08);
-      background: linear-gradient(180deg, #1a1f2b, #121620);
-      color: #fff; padding: 14px 16px;
-      border-radius: 12px; font-size: 17px; text-align: center;
-      text-decoration: none; cursor: pointer;
-    }
-    .btn.primary { background: linear-gradient(180deg, #2e5cff, #1b42d8); }
-    .btn.good { background: linear-gradient(180deg, #29c163, #1a8a46); }
-    .btn.ghost { background: transparent; border-color: rgba(255,255,255,.18); }
-    .header {
-      display:flex; align-items:center; gap:10px; margin-bottom: 12px;
-    }
-    .back { appearance:none; border:none; background:transparent; color:var(--txt); font-size:16px; padding:8px 8px; border-radius:10px; }
-    .back:active { background:#00000033; }
-    .title { font-weight:700; font-size:22px; letter-spacing: .2px; }
-    .screen { display:none; }
-    .screen.active { display:block; }
-    .card {
-      background: linear-gradient(180deg, #171b25, #121620);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: var(--radius);
-      padding: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
-    .ex {
-      border-radius: 12px;
-      border: 1px dashed rgba(255,255,255,.18);
-      padding: 12px;
-    }
-    .ex h3 { font-size: 17px; margin: 0 0 6px 0; line-height:1.25; }
-    .meta { color: var(--muted); font-size: 14px; display:flex; gap: 14px; flex-wrap:wrap; }
-    .dot { width:8px; height:8px; border-radius:8px; background:var(--acc2); display:inline-block; margin-right:6px; }
-    .pager { display:flex; align-items:center; justify-content:space-between; margin-top: 14px; gap:10px; }
-    .pill { color: #cfe3ff; background: #11203a; border: 1px solid #1d3b63; border-radius: 999px; padding: 6px 10px; font-size: 13px; }
-    .hint { color: var(--muted); font-size: 13px; margin-top: 10px; }
-    .footer { margin-top: 18px; color: var(--muted); font-size: 12px; text-align:center; }
-    .swipe { touch-action: pan-y; }
-    .extra { color:#ff9b9b; font-size:13px; margin-top:6px; }
-    .label { font-size: 13px; color: #cfe3ff; background:#0f223d; border:1px solid #1c3e6a; padding:6px 10px; border-radius:999px; display:inline-block; margin-bottom:10px; }
-  </style>
+<html lang="ru" data-theme="light"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Тренировки</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Тренировки">
+<style>
+:root{--bg:#0f1115;--fg:#e9eef5;--muted:#9aa5b1;--card:#171b25;--primary:#6aa7ff;--good:#41d27a;--warn:#ffcc66;--accent:#ff7ad9;--stroke:rgba(255,255,255,.10)}
+@media (prefers-color-scheme: light){:root{--bg:#f5f7fb;--fg:#0f172a;--muted:#475569;--card:#ffffff;--primary:#2e5cff;--good:#22c55e;--warn:#f59e0b;--accent:#db2777;--stroke:rgba(0,0,0,.08)}}
+:root[data-theme='light']{--bg:#f5f7fb;--fg:#0f172a;--muted:#475569;--card:#ffffff;--primary:#2e5cff;--good:#22c55e;--warn:#f59e0b;--accent:#db2777;--stroke:rgba(0,0,0,.08)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-serif;color:var(--fg);background:radial-gradient(1200px 800px at 10% -10%, rgba(255,122,217,.25), transparent 40%),radial-gradient(900px 700px at 110% 0%, rgba(106,167,255,.20), transparent 40%),radial-gradient(1200px 900px at 50% 120%, rgba(65,210,122,.15), transparent 40%),var(--bg)}
+.container{padding:calc(env(safe-area-inset-top) + 18px) 18px 18px}
+.row{display:grid;grid-template-columns:1fr;gap:12px}
+.header{display:flex;align-items:center;gap:10px;margin-bottom:12px}.spacer{flex:1}
+.iconbtn{appearance:none;border:1px solid var(--stroke);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 10px;cursor:pointer;transition:transform .05s ease, background .2s ease}
+.iconbtn:active{transform:scale(0.96);background:color-mix(in oklab, var(--primary) 20%, var(--card) 80%)}.iconbtn.on{background:color-mix(in oklab, var(--accent) 22%, var(--card) 78%)}
+.btn{display:block;width:100%;margin:8px 0;padding:14px 16px;border:1px solid var(--stroke);background:linear-gradient(180deg, var(--card), color-mix(in oklab, var(--card) 60%, black 20%));color:var(--fg);border-radius:12px;font-size:17px;text-align:center;cursor:pointer}
+.btn.primary{background:linear-gradient(180deg, color-mix(in oklab, var(--primary) 65%, white 15%), var(--primary));border:none;color:#fff}.btn.good{background:linear-gradient(180deg, color-mix(in oklab, var(--good) 65%, white 10%), var(--good));border:none;color:#001b0c}
+.screen{display:none}.screen.active{display:block}.card{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.ex{border:1px dashed var(--stroke);border-radius:12px;padding:12px;margin-bottom:10px}.meta{color:var(--muted);font-size:14px;display:flex;gap:14px;flex-wrap:wrap}
+.extra{color:#e34b4b;font-size:13px;margin-top:6px}.label{font-size:13px;color:#003b89;background:color-mix(in oklab, var(--primary) 20%, white 80%);border:1px solid color-mix(in oklab, var(--primary) 60%, black 10%);padding:6px 10px;border-radius:999px;display:inline-block;margin-bottom:10px}
+.pager{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px}.pill{color:var(--fg);background:color-mix(in oklab, var(--accent) 15%, white 85%);border:1px solid var(--stroke);border-radius:999px;padding:6px 10px;font-size:13px}
+.dot{width:8px;height:8px;border-radius:8px;background:var(--good);display:inline-block;margin-right:6px}.sets{display:flex;gap:6px;flex-wrap:nowrap;margin-top:8px;overflow-x:auto}
+.sets .set{display:flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid var(--stroke);border-radius:10px;background:color-mix(in oklab, var(--good) 8%, white 92%);flex:0 0 auto;white-space:nowrap}
+.sets .set input{width:18px;height:18px}.weight{margin-top:8px;display:flex;align-items:center;gap:8px}
+.weight input{flex:0 0 110px;padding:10px;border:1px solid var(--stroke);border-radius:10px;background:transparent;color:var(--fg);font-size:18px}
+</style>
 </head>
 <body>
   <div class="container">
-    <!-- HOME -->
     <section id="home" class="screen active">
-      <h1>Тренировки</h1>
+      <div class="header">
+        <h1>Тренировки</h1>
+        <span class="spacer"></span>
+        <button id="btnTheme" class="iconbtn on" title="Тема">🌞</button>
+        <button id="btnHistory" class="iconbtn" title="История">📈</button>
+      </div>
       <div class="subtitle">Выберите спортсмена</div>
       <div class="row">
         <button id="btnPavel" class="btn primary">Павел</button>
         <button id="btnYulia" class="btn good">Юлия</button>
       </div>
-      <div class="footer">PWA-версия · Можно добавить на экран «Домой» через «Поделиться»</div>
     </section>
 
-    <!-- PERSON -->
     <section id="person" class="screen">
       <div class="header">
-        <button id="backHome" class="back">‹ Назад</button>
-        <div class="title" id="personTitle">Юлия</div>
+        <button id="backHome" class="iconbtn">‹ Назад</button>
+        <h2 id="personTitle">Юлия</h2>
+        <span class="spacer"></span>
       </div>
       <div class="row">
         <button id="day1" class="btn">День 1</button>
         <button id="day2" class="btn">День 2</button>
         <button id="day3" class="btn">День 3</button>
       </div>
-      <div class="hint">Свайпайте «День» по одной странице за раз: одиночное упражнение или сет (2 упражнения).</div>
     </section>
 
-    <!-- DAY -->
     <section id="day" class="screen">
       <div class="header">
-        <button id="backPerson" class="back">‹ Назад</button>
-        <div class="title" id="dayTitle">День 1</div>
+        <button id="backPerson" class="iconbtn">‹ Назад</button>
+        <h2 id="dayTitle">День 1</h2>
+        <span class="spacer"></span>
+        <span class="pill" id="timeLeftPill">≈ 1:30 осталось</span>
+        <button id="btnResetDay" class="iconbtn" title="Сброс прогресса дня">♻️</button>
+        <button id="btnFinish" class="iconbtn" title="Завершить тренировку">✅</button>
       </div>
 
-      <div class="card swipe" id="pageCard">
+      <div class="card" id="pageCard">
         <div id="dayLabel" class="label"></div>
         <div id="pages"></div>
-
         <div class="pager">
           <button class="btn ghost" id="prevBtn">◀︎ Назад</button>
           <div class="pill" id="counter">1 / 1</div>
           <button class="btn ghost" id="nextBtn">Вперёд ▶︎</button>
         </div>
-        <div class="hint" id="note"></div>
       </div>
-      <div class="footer">Подходы, повторы и группы мышц указаны под каждым упражнением.</div>
     </section>
   </div>
 
 <script>
-// ---- DATA ----
-// ex item: {title, sets, reps, group, details?, extra?}
-const programs = {
-  yulia: {
-    1: [
-      { ex:[
-        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Разминка, произвольный темп"}
-      ]},
-      { ex:[
-        {title:"[Тренажёр] Жим ногами (наклонный, верх платформы, широкая стойка)", sets:"4", reps:"15–20", group:"Квадрицепсы, ягодичные", details:"Темп 3:1", extra:"Колени в стороны, упор в пятки"},
-        {title:"[Тренажёр] Разведения бёдер (+эспандер), отклонившись назад", sets:"4", reps:"15–20", group:"Средняя и малая ягодичные", details:"Пауза 2\" в пиковой точке"}
-      ], note:"Отдых: до 30 с между упражнениями, до 3 мин между сетами"},
-      { ex:[
-        {title:"[Нижний блок] Сгибания голени стоя в наклоне (одной ногой)", sets:"4", reps:"20/20", group:"Бицепс бедра, икроножные", details:"Пауза 2\" в момент сгибания"},
-        {title:"[Нижний блок] Хинчи (с ротацией таза)", sets:"4", reps:"20/20", group:"Ягодичные, разгибатели спины", details:"Темп 2:2"}
-      ], note:"Отдых: до 30 с / до 3 мин"},
-      { ex:[
-        {title:"[Верхний блок] Тяга к груди сидя (средний нейтральный хват)", sets:"4", reps:"15–20", group:"Широчайшие, задняя дельта, бицепс", details:"Взрывная тяга, возврат 3 счёта"},
-        {title:"[Нижний блок] Тяга к поясу сидя (средний нейтральный хват)", sets:"4", reps:"12–15", group:"Широчайшие, ромбовидные, трапеция", details:"Темп 1:3"}
-      ], note:"Отдых: до 30 с / до 3 мин"},
-      { ex:[
-        {title:"[Свой вес] Отжимания (широкая постановка / с коленей)", sets:"4", reps:"12–15", group:"Грудные, передняя дельта, трицепс", details:"Темп 3:1"},
-        {title:"[Гантели] Круговые разведения стоя", sets:"4", reps:"15–20", group:"Дельтовидные (средняя/передняя)", details:"Темп 1:3"}
-      ], note:"Отдых: до 30 с / до 3 мин"},
-      { ex:[
-        {title:"[Свой вес] Прямые скручивания лёжа (ноги на весу, 90°)", sets:"3", reps:"15–20", group:"Прямая мышца живота", details:"Прожимка 1–2\""}
-      ], note:"Минимально возможный отдых"},
-      { ex:[
-        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Заминка"}
-      ]}
-    ],
-    2: [
-      { ex:[
-        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Разминка"}
-      ]},
-      { ex:[
-        {title:"[Смит] Фронтальные зашагивания на платформу (без возврата стопы)", sets:"4", reps:"15/15", group:"Ягодичные, квадрицепсы", details:"Средний бокс; темп 2:2"},
-        {title:"[Тренажёр] Гиперэкстензия (колени прямые, стопы параллельны)", sets:"4", reps:"12–15", group:"Разгибатели спины, ягодичные", details:"Пауза 2\""}
-      ], note:"Отдых: до 30 с / до 3 мин"},
-      { ex:[
-        {title:"[Гиря/гантель] Гоблет‑приседания", sets:"4", reps:"15–20", group:"Квадрицепсы, ягодичные, кора", details:"Темп 2:2"},
-        {title:"[Гиря/гантель] Мёртвая тяга на одной ноге («ласточка»)", sets:"4", reps:"15/15", group:"Ягодичные, задняя поверхность бедра, кора", details:"Темп 3:1; колено опорной прямое"}
-      ], note:"Отдых: до 30 с / до 3 мин"},
-      { ex:[
-        {title:"[Нижний блок] Тяга к поясу стоя в наклоне (средний обратный хват)", sets:"4", reps:"12–15", group:"Широчайшие, ромбовидные, бицепс", details:"Темп 1:3"},
-        {title:"[Пек‑дек] Поочерёдные сведения рук (сидя, наклон 90°)", sets:"4", reps:"24–30", group:"Грудные", details:"Темп 2:2"}
-      ], note:"Отдых: до 30 с / до 3 мин"},
-      { ex:[
-        {title:"[Гравитрон] Подтягивания (широкий прямой хват)", sets:"4", reps:"12–15", group:"Широчайшие, бицепс", details:"Темп 1:3"},
-        {title:"[Гантели] Подъёмы перед собой с последующим разведением (сидя, 80°)", sets:"4", reps:"15–20", group:"Дельтовидные (передняя/средняя)", details:"Темп 2:2"}
-      ], note:"Отдых: до 30 с / до 3 мин"},
-      { ex:[
-        {title:"[Свой вес] Глубокие диагональные скручивания (ноги на скамье)", sets:"3", reps:"20/20", group:"Косые мышцы живота", details:"Темп 1:1 (быстро)"}
-      ]},
-      { ex:[
-        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Заминка"}
-      ]}
-    ],
-    3: [
-      { ex:[
-        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Разминка"}
-      ]},
-      { ex:[
-        {title:"[Штанга] Становая тяга «сумо»", sets:"4", reps:"12–20", group:"Ягодичные, приводящие, квадрицепсы", details:"Темп 1:1 (быстрый)"},
-        {title:"[Свой вес] Наклоны с подседом на одной ноге на платформе (с опорой)", sets:"4", reps:"25/25", group:"Ягодичные, квадрицепсы, кора", details:"Темп 2:2", extra:"В какой руке гантель — на ту ногу опора"}
-      ]},
-      { ex:[
-        {title:"[Штанга] Мёртвая тяга (ноги почти прямые)", sets:"4", reps:"12–15", group:"Задняя поверхность бедра, ягодичные, разгибатели спины", details:"Темп 3:1; без прогиба в пояснице"},
-        {title:"[Нижний блок] Отведения бедра стоя (стопа нейтральна)", sets:"4", reps:"20/20", group:"Средняя ягодичная", details:"Темп 2:2"}
-      ]},
-      { ex:[
-        {title:"[Верхний блок] Тяга к груди сидя (узкий обратный хват)", sets:"4", reps:"10+10", group:"Широчайшие, бицепс, задняя дельта", details:"Пауза 2\" в момент сокращения"},
-        {title:"[Гантели] Отведения плеч стоя", sets:"4", reps:"15–20", group:"Средняя дельта", details:"Темп 2:2"}
-      ], note:"Локти над плечом; движение из плеча"},
-      { ex:[
-        {title:"[Рычажный] Горизонтальная тяга одной рукой (высокая посадка)", sets:"4", reps:"15/15", group:"Широчайшие, ромбовидные, задняя дельта", details:"Темп 1:3"},
-        {title:"[Гантели] Жим лёжа под 30° одной рукой (прямой хват)", sets:"4", reps:"30", group:"Грудные, передняя дельта, трицепс", details:"Поочерёдно по 5 повторений на руку"}
-      ]},
-      { ex:[
-        {title:"[Роллер] Прокат с коленей", sets:"3", reps:"20–30", group:"Пресс, разгибатели спины", details:"Темп 1:1"}
-      ], note:"Минимально возможный отдых"},
-      { ex:[
-        {title:"[Тренажёр] Беговая дорожка (под наклоном), ЧСС ~120", sets:"1", reps:"10:00", group:"Сердечно‑сосудистая", details:"Заминка"}
-      ]}
-    ]
-  },
-  pavel: {
-    1:[{ ex:[{title:"(пока пусто)", sets:"—", reps:"—", group:"—"}] }],
-    2:[{ ex:[{title:"(пока пусто)", sets:"—", reps:"—", group:"—"}] }],
-    3:[{ ex:[{title:"(пока пусто)", sets:"—", reps:"—", group:"—"}] }]
-  }
-};
+const programs = {"yulia": {"1": [{"ex": [{"title": "Беговая дорожка", "sets": "1", "reps": "10:00", "group": "Кардио", "details": "Разминка"}]}, {"ex": [{"title": "Жим ногами", "sets": "4", "reps": "15–20", "group": "Квадрицепсы, ягодичные", "extra": "Колени в стороны, упор в пятки"}, {"title": "Разведения бёдер", "sets": "4", "reps": "15–20", "group": "Средняя и малая ягодичные", "extra": "Поясница без прогиба, можно чуть округлиться"}]}, {"ex": [{"title": "Сгибания голени", "sets": "4", "reps": "20/20", "group": "Бицепс бедра, икры", "extra": "Поясница без прогиба, можно чуть округлиться"}, {"title": "Хипчи", "sets": "4", "reps": "20/20", "group": "Ягодичные, спина", "extra": "Берёмся крест-накрест, правая нога спереди, рукоять в левой руке"}]}, {"ex": [{"title": "Тяга к груди сидя", "sets": "4", "reps": "15–20", "group": "Спина", "extra": "Тянем локтями вниз, грудь чуть выпячена к рукояти"}, {"title": "Тяга к поясу сидя", "sets": "4", "reps": "12–15", "group": "Спина", "extra": "Тянем локтями назад, локти не прижаты, без прогиба в пояснице"}]}, {"ex": [{"title": "Отжимания", "sets": "4", "reps": "12–15", "group": "Грудные, трицепс", "extra": "Ягодицы сжаты, таз подан вперёд, до касания грудью пола"}, {"title": "Круговые разведения", "sets": "4", "reps": "15–20", "group": "Дельты", "extra": "Ладони всё время смотрят от себя"}]}, {"ex": [{"title": "Прямые скручивания", "sets": "3", "reps": "15–20", "group": "Пресс"}]}, {"ex": [{"title": "Беговая дорожка", "sets": "1", "reps": "10:00", "group": "Кардио", "details": "Заминка"}]}], "2": [{"ex": [{"title": "Беговая дорожка", "sets": "1", "reps": "10:00", "group": "Кардио", "details": "Разминка"}]}, {"ex": [{"title": "Фронтальные зашагивания", "sets": "4", "reps": "15/15", "group": "Ягодичные, квадрицепсы", "extra": "Колено вперёд не уходит, наклон корпуса к колену"}, {"title": "Гиперэкстензия", "sets": "4", "reps": "12–15", "group": "Спина", "extra": "Коленные связки не фиксируем, спина без прогиба"}]}, {"ex": [{"title": "Гоблет-приседания", "sets": "4", "reps": "15–20", "group": "Квадрицепсы, ягодичные", "extra": "Колени максимально в стороны, контроль поясницы"}, {"title": "Мёртвая тяга на одной ноге", "sets": "4", "reps": "15/15", "group": "Бёдра, ягодичные", "extra": "В какой руке гантель, на ту ногу и опираемся"}]}, {"ex": [{"title": "Тяга к поясу стоя", "sets": "4", "reps": "12–15", "group": "Спина", "extra": "Тянем локтями назад, локти почти прижаты, без прогиба в пояснице"}, {"title": "Пек-дек", "sets": "4", "reps": "24–30", "group": "Грудные", "extra": "Локти на уровне или чуть ниже плеч, сводим за счёт грудных, без прогиба"}]}, {"ex": [{"title": "Подтягивания", "sets": "4", "reps": "12–15", "group": "Спина", "extra": "Тянем локтями вниз, грудь чуть выпячена к рукояткам"}, {"title": "Подъёмы перед собой", "sets": "4", "reps": "15–20", "group": "Дельты", "extra": "Сидим без прогиба, при необходимости поднять ноги на степ"}]}, {"ex": [{"title": "Диагональные скручивания", "sets": "3", "reps": "20/20", "group": "Пресс"}]}, {"ex": [{"title": "Беговая дорожка", "sets": "1", "reps": "10:00", "group": "Кардио", "details": "Заминка"}]}], "3": [{"ex": [{"title": "Беговая дорожка", "sets": "1", "reps": "10:00", "group": "Кардио", "details": "Разминка"}]}, {"ex": [{"title": "Становая тяга «сумо»", "sets": "4", "reps": "12–20", "group": "Ноги, ягодицы", "extra": "Без прогиба в пояснице и без рывков"}, {"title": "Наклоны с подседом", "sets": "4", "reps": "25/25", "group": "Ноги, ягодицы", "extra": "Наклон грудью к колену, стопой тянемся назад, без прогиба"}]}, {"ex": [{"title": "Мёртвая тяга", "sets": "4", "reps": "12–15", "group": "Спина, бёдра", "extra": "Без прогиба, спина нейтральна, можно чуть расслабить"}, {"title": "Отведения бедра стоя", "sets": "4", "reps": "20/20", "group": "Ягодичные", "extra": "Неспеша, высоко ногу не поднимаем"}]}, {"ex": [{"title": "Тяга к груди сидя (узкий хват)", "sets": "4", "reps": "10+10", "group": "Спина", "extra": "Тянем локтями вниз, к низу груди, с прогибом"}, {"title": "Отведения плеч стоя", "sets": "4", "reps": "15–20", "group": "Дельты", "extra": "Руки почти прямые, тянем локтями вверх, гантели чуть спереди"}]}, {"ex": [{"title": "Горизонтальная тяга одной рукой", "sets": "4", "reps": "15/15", "group": "Спина", "extra": "Тянем локтем назад, движение за счёт лопатки, а не бицепса"}, {"title": "Жим лёжа под углом 30°", "sets": "4", "reps": "30", "group": "Грудные, дельты", "extra": "Локти над плечом, всё движение только в локтях"}]}, {"ex": [{"title": "Роллер прокат", "sets": "3", "reps": "20–30", "group": "Пресс"}]}, {"ex": [{"title": "Беговая дорожка", "sets": "1", "reps": "10:00", "group": "Кардио", "details": "Заминка"}]}]}, "pavel": {"1": [{"ex": [{"title": "(пусто)", "sets": "—", "reps": "—", "group": "—"}]}], "2": [{"ex": [{"title": "(пусто)", "sets": "—", "reps": "—", "group": "—"}]}], "3": [{"ex": [{"title": "(пусто)", "sets": "—", "reps": "—", "group": "—"}]}]}};
 
-// ---- STATE ----
+// THEME
+(function(){
+  const root = document.documentElement;
+  const saved = localStorage.getItem('app.theme');
+  if(saved) root.setAttribute('data-theme', saved);
+  const btn = document.getElementById('btnTheme');
+  function updateIcon(){
+    const cur = root.getAttribute('data-theme') || '';
+    btn.textContent = (cur==='light') ? '🌞' : '🌙';
+    btn.classList.toggle('on', cur==='light');
+  }
+  updateIcon();
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault(); e.stopPropagation();
+    const cur = root.getAttribute('data-theme');
+    const next = cur === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('app.theme', next);
+    updateIcon();
+  });
+})();
+
 let currentPerson = null;
 let currentDay = 1;
 let pageIndex = 0;
 let precomputedLabels = [];
 
-// ---- NAV ----
-function show(screenId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(screenId).classList.add('active');
-}
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+document.getElementById('backHome').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); show('home'); });
+document.getElementById('btnPavel').addEventListener('click', ()=>openPerson('pavel'));
+document.getElementById('btnYulia').addEventListener('click', ()=>openPerson('yulia'));
+document.getElementById('day1').addEventListener('click', ()=>openDay(1));
+document.getElementById('day2').addEventListener('click', ()=>openDay(2));
+document.getElementById('day3').addEventListener('click', ()=>openDay(3));
+document.getElementById('prevBtn').addEventListener('click', ()=>{pageIndex--;renderPage();});
+document.getElementById('nextBtn').addEventListener('click', ()=>{pageIndex++;renderPage();});
+document.getElementById('backPerson').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); show('person'); });
+document.getElementById('btnResetDay').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); resetDay(); });
+document.getElementById('btnFinish').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); finishDay(); });
 
-document.getElementById('btnPavel').addEventListener('click', () => openPerson('pavel'));
-document.getElementById('btnYulia').addEventListener('click', () => openPerson('yulia'));
-document.getElementById('backHome').addEventListener('click', () => goHome());
-document.getElementById('backPerson').addEventListener('click', () => goPerson());
-document.getElementById('day1').addEventListener('click', () => openDay(1));
-document.getElementById('day2').addEventListener('click', () => openDay(2));
-document.getElementById('day3').addEventListener('click', () => openDay(3));
-document.getElementById('prevBtn').addEventListener('click', () => { pageIndex--; renderPage(); });
-document.getElementById('nextBtn').addEventListener('click', () => { pageIndex++; renderPage(); });
-
-function openPerson(person){
-  currentPerson = person;
-  document.getElementById('personTitle').textContent = person === 'yulia' ? 'Юлия' : 'Павел';
-  show('person');
-}
-function goHome(){ show('home'); }
-function goPerson(){ show('person'); }
-
-function openDay(day){
-  currentDay = day;
-  pageIndex = 0;
-  document.getElementById('dayTitle').textContent = "День " + day;
-  // Precompute labels for pages
-  const pages = getPages();
-  let setCount = 0, exCount = 0;
-  precomputedLabels = pages.map((p, idx) => {
-    const isFirst = idx === 0;
-    const isLast = idx === pages.length - 1;
-    if (isFirst) return "Разминка";
-    if (isLast) return "Заминка";
-    if (p.ex && p.ex.length === 2) { setCount++; return "Сет " + setCount; }
-    exCount++;
-    return "Упражнение " + exCount;
+function openPerson(p){ currentPerson=p; document.getElementById('personTitle').textContent = p==='yulia'?'Юлия':'Павел'; show('person'); }
+function openDay(d){
+  currentDay=d; pageIndex=0; document.getElementById('dayTitle').textContent='День '+d;
+  const pages = getPages(); let setCount=0, exCount=0;
+  precomputedLabels = pages.map((p,idx)=>{ const first = idx===0, last = idx===pages.length-1;
+    if(first) return 'Разминка'; if(last) return 'Заминка';
+    if(p.ex && p.ex.length===2) return 'Сет ' + (++setCount);
+    return 'Упражнение ' + (++exCount);
   });
-  renderPage();
-  show('day');
+  renderPage(); show('day'); updateTimeLeft();
 }
-
-// ---- RENDER PAGE ----
 function getPages(){ return programs[currentPerson][currentDay] || []; }
+function keyWeight(person, day, page, exIdx){ return `w|${person}|${day}|${page}|${exIdx}`; }
+function keySet(person, day, page, exIdx, setIdx){ return `s|${person}|${day}|${page}|${exIdx}|${setIdx}`; }
+function parseSets(setsStr){ const m = String(setsStr||'').match(/(\d+)/); return m ? Math.max(1, parseInt(m[1],10)) : 1; }
+function needsWeight(title){ const t=String(title).toLowerCase(); if(t.includes('беговая дорожка')||t.includes('скручив')||t.includes('роллер')) return false; return true; }
+
 function renderPage(){
-  const pages = getPages();
-  if(!pages.length) return;
-  pageIndex = Math.max(0, Math.min(pageIndex, pages.length - 1));
-  const { ex, note } = pages[pageIndex];
-  const el = document.getElementById('pages');
-  el.innerHTML = ex.map(i => `
-    <div class="ex">
-      <h3><span class="dot"></span>${i.title}</h3>
-      <div class="meta">
-        <div>Подходы: <b>${i.sets}</b></div>
-        <div>Повторы: <b>${i.reps}</b></div>
-        <div>Группа: <b>${i.group}</b></div>
-        ${i.details ? `<div>${i.details}</div>` : ''}
-      </div>
-      ${i.extra ? `<div class="extra">${i.extra}</div>` : ''}
-    </div>
-  `).join('');
-  document.getElementById('counter').textContent = `${pageIndex + 1} / ${pages.length}`;
-  document.getElementById('note').textContent = note || '';
-  document.getElementById('dayLabel').textContent = precomputedLabels[pageIndex] || "";
-  document.getElementById('prevBtn').disabled = (pageIndex === 0);
-  document.getElementById('nextBtn').disabled = (pageIndex === pages.length - 1);
+  const pages = getPages(); if(!pages.length) return;
+  pageIndex = Math.max(0, Math.min(pageIndex, pages.length-1));
+  const page = pages[pageIndex];
+  const pagesEl = document.getElementById('pages');
+  const blocks = page.ex.map((it, idx)=>{
+    const totalSets = parseSets(it.sets);
+    let setsHtml = '<div class="sets">';
+    for(let s=1;s<=totalSets;s++){ 
+      const k = keySet(currentPerson,currentDay,pageIndex,idx,s);
+      const checked = localStorage.getItem(k)==='1' ? 'checked' : '';
+      setsHtml += '<label class="set"><input type="checkbox" data-k="'+k+'" '+checked+'> Сет '+s+'</label>';
+    }
+    setsHtml += '</div>';
+
+    let weightHtml = '';
+    if(needsWeight(it.title)){
+      const wk = keyWeight(currentPerson,currentDay,pageIndex,idx);
+      const wv = localStorage.getItem(wk) || '';
+      weightHtml = '<div class="weight"><span>Вес:</span>'
+        + '<input type="text" inputmode="decimal" enterkeyhint="done" pattern="[0-9]*[\.,]?[0-9]*"'
+        + ' value="'+wv+'" data-wk="'+wk+'" placeholder="кг">'
+        + '<span class="muted">кг</span></div>';
+    }
+
+    const details = it.details ? ('<div>'+it.details+'</div>') : '';
+    const extra = it.extra ? ('<div class="extra">'+it.extra+'</div>') : '';
+
+    return '<div class="ex">'
+      + '<h3><span class="dot"></span>'+it.title+'</h3>'
+      + '<div class="meta">'
+      + '<div>Подходы: <b>'+it.sets+'</b></div>'
+      + '<div>Повторы: <b>'+(it.reps||'-')+'</b></div>'
+      + '<div>Группа: <b>'+(it.group||'-')+'</b></div>'
+      + details
+      + '</div>'
+      + extra
+      + setsHtml
+      + weightHtml
+      + '</div>';
+  });
+  pagesEl.innerHTML = blocks.join('');
+
+  pagesEl.querySelectorAll('input[type="checkbox"]').forEach(cb=>{ cb.addEventListener('change', (e)=> { localStorage.setItem(e.target.dataset.k, e.target.checked?'1':'0'); updateTimeLeft(); }); });
+  pagesEl.querySelectorAll('.weight input').forEach(inp=>{ inp.addEventListener('change', (e)=> { const v = (e.target.value||'').replace(',', '.').trim(); localStorage.setItem(e.target.dataset.wk, v); }); });
+
+  document.getElementById('counter').textContent = (pageIndex+1)+' / '+pages.length;
+  document.getElementById('dayLabel').textContent = precomputedLabels[pageIndex] || '';
+  document.getElementById('prevBtn').disabled = (pageIndex===0);
+  document.getElementById('nextBtn').disabled = (pageIndex===pages.length-1);
+  updateTimeLeft();
 }
 
-// ---- SWIPE ----
-(function attachSwipe(){
-  const card = document.getElementById('pageCard');
-  let x0 = null, t0 = 0;
-  const THRESHOLD = 40, TIME = 500;
-  card.addEventListener('touchstart', e => { const t = e.changedTouches[0]; x0 = t.clientX; t0 = Date.now(); }, {passive:true});
-  card.addEventListener('touchend', e => {
-    if (x0 == null) return;
-    const dx = e.changedTouches[0].clientX - x0;
-    const dt = Date.now() - t0;
-    if (dt < TIME && Math.abs(dx) > THRESHOLD){ if (dx < 0) { pageIndex++; } else { pageIndex--; } renderPage(); }
-    x0 = null;
-  }, {passive:true});
-})();
+// TIME LEFT
+const DUR = { perSet: 2, warmup: 10, cooldown: 10 };
+function computeTimeLeft(){
+  const pages = getPages(); if(!pages.length) return {total:90, done:0, left:90};
+  let totalSets = 0, doneSets = 0, warmupTotal=0, warmupDone=0, cooldownTotal=0, cooldownDone=0;
+  for(let p=0;p<pages.length;p++){
+    const exs = pages[p].ex || [];
+    for(let i=0;i<exs.length;i++){
+      const it = exs[i]; const sets = parseSets(it.sets);
+      if(/Разминка/i.test(it.details||'')){
+        warmupTotal += DUR.warmup;
+        if(localStorage.getItem(keySet(currentPerson,currentDay,p,i,1))==='1') warmupDone += DUR.warmup;
+      } else if(/Заминка/i.test(it.details||'')){
+        cooldownTotal += DUR.cooldown;
+        if(localStorage.getItem(keySet(currentPerson,currentDay,p,i,1))==='1') cooldownDone += DUR.cooldown;
+      } else {
+        totalSets += sets;
+        for(let s=1;s<=sets;s++){ if(localStorage.getItem(keySet(currentPerson,currentDay,p,i,s))==='1') doneSets++; }
+      }
+    }
+  }
+  const total = warmupTotal + cooldownTotal + totalSets * DUR.perSet;
+  const done = warmupDone + cooldownDone + doneSets * DUR.perSet;
+  return { total: Math.round(total), done: Math.round(done), left: Math.max(0, Math.round(total-done)) };
+}
+function fmt(mins){ const h=Math.floor(mins/60), m=mins%60; return (h>0? (h+':'+String(m).padStart(2,'0')) : (m+' мин')); }
+function updateTimeLeft(){ const pill=document.getElementById('timeLeftPill'); if(!pill) return; const {left}=computeTimeLeft(); pill.textContent='≈ '+fmt(left)+' осталось'; }
+
+// RESET & FINISH
+function resetDay(){
+  const ok = confirm('Сбросить отметки подходов и веса за текущий день?');
+  if(!ok) return;
+  const pages = getPages();
+  for(let p=0;p<pages.length;p++){
+    const exs = pages[p].ex || [];
+    for(let i=0;i<exs.length;i++){
+      const it = exs[i];
+      const sets = parseSets(it.sets);
+      localStorage.removeItem(keyWeight(currentPerson,currentDay,p,i));
+      for(let s=1;s<=sets;s++){ localStorage.removeItem(keySet(currentPerson,currentDay,p,i,s)); }
+    }
+  }
+  renderPage();
+  alert('Прогресс дня очищен ✅');
+}
+function finishDay(){
+  // сохраняем мини-лог без графиков (облегчённо)
+  const pages = getPages(); const items=[];
+  for(let p=0;p<pages.length;p++){ const exs=pages[p].ex||[]; for(let i=0;i<exs.length;i++){ const it=exs[i]; const sets=parseSets(it.sets);
+    let done=0; for(let s=1;s<=sets;s++){ if(localStorage.getItem(keySet(currentPerson,currentDay,p,i,s))==='1') done++; }
+    const weight = needsWeight(it.title) ? (localStorage.getItem(keyWeight(currentPerson,currentDay,p,i))||'') : '';
+    items.push({title:it.title, sets, done, weight});
+  }};
+  const entry = {ts:Date.now(), person:currentPerson, day:currentDay, items};
+  const arr = JSON.parse(localStorage.getItem('history.v1')||'[]'); arr.unshift(entry); while(arr.length>10) arr.pop();
+  localStorage.setItem('history.v1', JSON.stringify(arr));
+  alert('Тренировка завершена ✅');
+}
 </script>
 
 

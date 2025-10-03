@@ -1,5 +1,4 @@
 import json
-from datetime import datetime, timezone
 from textwrap import dedent
 
 programs = {}
@@ -264,13 +263,15 @@ body_html = dedent("""
 """)
 
 script_js = dedent("""
+  const htmlEscapes = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
   function escapeHtml(str){
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+    return String(str).replace(/[&<>"']/g, ch => htmlEscapes[ch] || ch);
   }
 const personNames = { woman:'Woman', boy:'Boy', man:'Man' };
 
@@ -979,11 +980,8 @@ programs["man"] = {
     ]
 }
 
-build_stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-template = dedent(f"""
+template = dedent("""
 <!DOCTYPE html>
-<!-- build version: {build_stamp} -->
 <html lang=\"ru\">
 <head>
 <meta charset=\"UTF-8\">

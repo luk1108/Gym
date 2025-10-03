@@ -37,7 +37,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-s
   radial-gradient(1200px 900px at 50% 120%, rgba(65,210,122,.15), transparent 40%),
   var(--bg)}
 .container{padding:calc(env(safe-area-inset-top) + 14px) 14px 14px}
-.row{display:grid;grid-template-columns:1fr;gap:10px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .header{display:flex;align-items:center;gap:8px;margin-bottom:10px}.spacer{flex:1}
 .iconbtn{appearance:none;border:1px solid var(--stroke);background:var(--card);color:var(--fg);border-radius:10px;padding:6px 8px;cursor:pointer;transition:transform .05s ease, background .2s ease}
 .iconbtn:active{transform:scale(0.96);background:color-mix(in oklab, var(--primary) 20%, var(--card) 80%)}.iconbtn.on{background:color-mix(in oklab, var(--accent) 25%, var(--card) 75%)}
@@ -75,15 +75,16 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-s
         <button id="btnHistory" class="iconbtn" title="Прогресс">📈</button>
       </div>
       <div class="row">
-        <button id="btnPavel" class="btn primary">Павел</button>
-        <button id="btnYulia" class="btn good">Юлия</button>
+        <button id="btnBoy" class="btn primary">Boy</button>
+        <button id="btnWoman" class="btn good">Woman</button>
+        <button id="btnMan" class="btn">Man</button>
       </div>
     </section>
 
     <section id="person" class="screen">
       <div class="header">
         <button id="backHome" class="iconbtn">‹ Назад</button>
-        <h2 id="personTitle">Юлия</h2>
+        <h2 id="personTitle">Woman</h2>
         <span class="spacer"></span>
       </div>
       <div class="row">
@@ -133,7 +134,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Arial,sans-s
 
 <script>
 // ==== ДАННЫЕ ПРОГРАММ ====
-const programs = {"yulia": {
+const programs = {"woman": {
     1: [
       { "ex":[{"title":"Беговая дорожка", "sets":"1", "reps":"10:00", "group":"Кардио", "details":"Разминка"}]},
       { "ex":[
@@ -198,7 +199,8 @@ const programs = {"yulia": {
       { "ex":[{"title":"Беговая дорожка", "sets":"1", "reps":"10:00", "group":"Кардио", "details":"Заминка"}]}
     ]
   },
-  "pavel": {1:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}],2:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}],3:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}]}
+  "boy": {1:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}],2:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}],3:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}]},
+  "man": {1:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}],2:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}],3:[{"ex":[{"title":"(пусто)", "sets":"—", "reps":"—", "group":"—"}]}]}
 };
 
 // ==== ТЕМА ====
@@ -235,8 +237,9 @@ document.getElementById('btnHistory').addEventListener('click', ()=>{ renderHist
 document.getElementById('backHome2').addEventListener('click', ()=> show('home'));
 
 document.getElementById('backHome').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); show('home'); });
-document.getElementById('btnPavel').addEventListener('click', ()=>openPerson('pavel'));
-document.getElementById('btnYulia').addEventListener('click', ()=>openPerson('yulia'));
+document.getElementById('btnBoy').addEventListener('click', ()=>openPerson('boy'));
+document.getElementById('btnWoman').addEventListener('click', ()=>openPerson('woman'));
+document.getElementById('btnMan').addEventListener('click', ()=>openPerson('man'));
 document.getElementById('day1').addEventListener('click', ()=>openDay(1));
 document.getElementById('day2').addEventListener('click', ()=>openDay(2));
 document.getElementById('day3').addEventListener('click', ()=>openDay(3));
@@ -246,7 +249,8 @@ document.getElementById('backPerson').addEventListener('click', (e)=>{ e.prevent
 document.getElementById('btnResetDay').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); resetDay(false); });
 document.getElementById('btnFinish').addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); finishDay(); });
 
-function openPerson(p){ currentPerson=p; document.getElementById('personTitle').textContent = p==='yulia'?'Юлия':'Павел'; show('person'); }
+const PERSON_LABELS = { woman: 'Woman', boy: 'Boy', man: 'Man' };
+function openPerson(p){ currentPerson=p; document.getElementById('personTitle').textContent = PERSON_LABELS[p] || 'Person'; show('person'); }
 function openDay(d){
   currentDay=d; pageIndex=0; document.getElementById('dayTitle').textContent='День '+d;
   const pages = getPages(); let setCount=0, exCount=0;
@@ -416,7 +420,7 @@ function renderHistory(){
   const list = document.getElementById('historyList'); list.innerHTML='';
   if(!arr.length){ list.innerHTML='<div class="item"><span>Пока нет записей. Нажимайте ✅ на экране тренировки.</span></div>'; return; }
   arr.forEach((entry, idx)=>{ const d = new Date(entry.ts);
-    const head = d.toLocaleDateString()+' · '+(entry.person==='yulia'?'Юлия':'Павел')+' · День '+entry.day;
+    const head = d.toLocaleDateString()+' · '+(PERSON_LABELS[entry.person]||'Person')+' · День '+entry.day;
     const summary = entry.items.map(x=>x.title+' — '+x.done+'/'+x.sets+(x.weight?(' · '+x.weight+' кг'):'')).slice(0,3).join('; ') + (entry.items.length>3?' …':'');
     const div = document.createElement('div'); div.className='item';
     const span = document.createElement('span'); span.textContent=head+' — '+summary;

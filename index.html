@@ -1990,6 +1990,73 @@ let currentDay = 1;
 let pageIndex = 0;
 let precomputedLabels = [];
 let advanceTimer = null;
+let modal = null;
+let modalImg = null;
+let modalTitle = null;
+
+function attach(id, handler){
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('click', handler, { passive:false });
+}
+
+function setup(){
+  const root = document.documentElement;
+  const saved = localStorage.getItem('app.theme');
+  if(saved) root.setAttribute('data-theme', saved);
+  const themeBtn = document.getElementById('btnTheme');
+  if(themeBtn){
+    const update = ()=>{
+      const cur = root.getAttribute('data-theme') || '';
+      themeBtn.textContent = (cur === 'light') ? '🌞' : '🌙';
+      themeBtn.classList.toggle('on', cur === 'light');
+    };
+    update();
+    themeBtn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const cur = root.getAttribute('data-theme');
+      const next = cur === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('app.theme', next);
+      update();
+    });
+  }
+
+  attach('btnHistory', (e)=>{ e.preventDefault(); renderHistory(); show('history'); });
+  attach('backHome2', (e)=>{ e.preventDefault(); show('home'); });
+  attach('backHome', (e)=>{ e.preventDefault(); show('home'); });
+  attach('btnWoman', ()=> openPerson('woman'));
+  attach('btnBoy', ()=> openPerson('boy'));
+  attach('btnMan', ()=> openPerson('man'));
+  attach('day1', ()=> openDay(1));
+  attach('day2', ()=> openDay(2));
+  attach('day3', ()=> openDay(3));
+  attach('prevBtn', (e)=>{ e.preventDefault(); pageIndex--; renderPage(); });
+  attach('nextBtn', (e)=>{ e.preventDefault(); pageIndex++; renderPage(); });
+  attach('backPerson', (e)=>{ e.preventDefault(); show('person'); });
+  attach('btnResetDay', (e)=>{ e.preventDefault(); resetDay(false); });
+  attach('btnFinish', (e)=>{ e.preventDefault(); finishDay(); });
+
+  modal = document.getElementById('imageModal');
+  modalImg = document.getElementById('modalImg');
+  modalTitle = document.getElementById('modalTitle');
+  const closeBtn = document.getElementById('modalClose');
+  if(closeBtn) closeBtn.addEventListener('click', hideImage, { passive:false });
+  if(modal) modal.addEventListener('click', (event)=>{ if(event.target === modal) hideImage(); });
+}
+
+document.addEventListener('DOMContentLoaded', setup);
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(el) el.classList.add('active');
+}
+
+function openPerson(p){
+  currentPerson = p;
+  document.getElementById('personTitle').textContent = personNames[p] || 'Program';
+  show('person');
+}
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));

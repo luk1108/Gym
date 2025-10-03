@@ -263,6 +263,14 @@ body_html = dedent("""
 """)
 
 script_js = dedent("""
+  function escapeHtml(str){
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 function escapeHtml(str){
   return String(str).replace(/["&'<>]/g, s=>({"\"":"&quot;","&":"&amp;","'":"&#39;","<":"&lt;",">":"&gt;"}[s]));
 }
@@ -983,6 +991,9 @@ template = dedent("""
 <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">
 <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"default\">
 <meta name=\"apple-mobile-web-app-title\" content=\"Тренировки\">
+<meta http-equiv=\"Cache-Control\" content=\"no-store, no-cache, must-revalidate\">
+<meta http-equiv=\"Pragma\" content=\"no-cache\">
+<meta http-equiv=\"Expires\" content=\"0\">
 <style>
 __CSS__
 </style>

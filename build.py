@@ -263,15 +263,13 @@ body_html = dedent("""
 """)
 
 script_js = dedent("""
-  const htmlEscapes = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  };
   function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, ch => htmlEscapes[ch] || ch);
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 const personNames = { woman:'Woman', boy:'Boy', man:'Man' };
 

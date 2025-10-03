@@ -1951,15 +1951,13 @@ const imageSources = {
   "hip_stretch_floor.jpg": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Hip-Flexor-Stretch.gif"
 };
 
-  const htmlEscapes = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  };
   function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, ch => htmlEscapes[ch] || ch);
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 const personNames = { woman:'Woman', boy:'Boy', man:'Man' };
 

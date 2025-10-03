@@ -1,7 +1,7 @@
 import json
 from textwrap import dedent
 
-APP_VERSION = "2024-05-21-01"
+APP_VERSION = "2024-05-21-02"
 
 programs = {}
 image_sources = {

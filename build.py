@@ -271,6 +271,9 @@ script_js = dedent("""
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
   }
+function escapeHtml(str){
+  return String(str).replace(/["&'<>]/g, s=>({"\"":"&quot;","&":"&amp;","'":"&#39;","<":"&lt;",">":"&gt;"}[s]));
+}
 const personNames = { woman:'Woman', boy:'Boy', man:'Man' };
 
 (function(){

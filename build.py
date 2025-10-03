@@ -265,16 +265,14 @@ body_html = dedent("""
 """)
 
 script_js = dedent("""
-function escapeHtml(str){
-  const map = {
-    '"': '&quot;',
-    '&': '&amp;',
-    "'": '&#39;',
-    '<': '&lt;',
-    '>': '&gt;'
-  };
-  return String(str).replace(/["&'<>]/g, s=>map[s] || s);
-}
+  function escapeHtml(str){
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 const personNames = { woman:'Woman', boy:'Boy', man:'Man' };
 
 (function(){

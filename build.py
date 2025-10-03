@@ -271,74 +271,58 @@ script_js = dedent("""
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
   }
+function escapeHtml(str){
+  return String(str).replace(/["&'<>]/g, s=>({"\"":"&quot;","&":"&amp;","'":"&#39;","<":"&lt;",">":"&gt;"}[s]));
+}
 const personNames = { woman:'Woman', boy:'Boy', man:'Man' };
+
+(function(){
+  const root = document.documentElement;
+  const saved = localStorage.getItem('app.theme');
+  if(saved) root.setAttribute('data-theme', saved);
+  const btn = document.getElementById('btnTheme');
+  function update(){
+    const cur = root.getAttribute('data-theme') || '';
+    btn.textContent = (cur === 'light') ? '🌞' : '🌙';
+    btn.classList.toggle('on', cur === 'light');
+  }
+  update();
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const cur = root.getAttribute('data-theme');
+    const next = cur === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('app.theme', next);
+    update();
+  });
+})();
 
 let currentPerson = null;
 let currentDay = 1;
 let pageIndex = 0;
 let precomputedLabels = [];
 let advanceTimer = null;
-let modal = null;
-let modalImg = null;
-let modalTitle = null;
-
-function attach(id, handler){
-  const el = document.getElementById(id);
-  if(el) el.addEventListener('click', handler, { passive:false });
-}
-
-function setup(){
-  const root = document.documentElement;
-  const saved = localStorage.getItem('app.theme');
-  if(saved) root.setAttribute('data-theme', saved);
-  const themeBtn = document.getElementById('btnTheme');
-  if(themeBtn){
-    const update = ()=>{
-      const cur = root.getAttribute('data-theme') || '';
-      themeBtn.textContent = (cur === 'light') ? '🌞' : '🌙';
-      themeBtn.classList.toggle('on', cur === 'light');
-    };
-    update();
-    themeBtn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const cur = root.getAttribute('data-theme');
-      const next = cur === 'light' ? 'dark' : 'light';
-      root.setAttribute('data-theme', next);
-      localStorage.setItem('app.theme', next);
-      update();
-    });
-  }
-
-  attach('btnHistory', (e)=>{ e.preventDefault(); renderHistory(); show('history'); });
-  attach('backHome2', (e)=>{ e.preventDefault(); show('home'); });
-  attach('backHome', (e)=>{ e.preventDefault(); show('home'); });
-  attach('btnWoman', ()=> openPerson('woman'));
-  attach('btnBoy', ()=> openPerson('boy'));
-  attach('btnMan', ()=> openPerson('man'));
-  attach('day1', ()=> openDay(1));
-  attach('day2', ()=> openDay(2));
-  attach('day3', ()=> openDay(3));
-  attach('prevBtn', (e)=>{ e.preventDefault(); pageIndex--; renderPage(); });
-  attach('nextBtn', (e)=>{ e.preventDefault(); pageIndex++; renderPage(); });
-  attach('backPerson', (e)=>{ e.preventDefault(); show('person'); });
-  attach('btnResetDay', (e)=>{ e.preventDefault(); resetDay(false); });
-  attach('btnFinish', (e)=>{ e.preventDefault(); finishDay(); });
-
-  modal = document.getElementById('imageModal');
-  modalImg = document.getElementById('modalImg');
-  modalTitle = document.getElementById('modalTitle');
-  const closeBtn = document.getElementById('modalClose');
-  if(closeBtn) closeBtn.addEventListener('click', hideImage, { passive:false });
-  if(modal) modal.addEventListener('click', (event)=>{ if(event.target === modal) hideImage(); });
-}
-
-document.addEventListener('DOMContentLoaded', setup);
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el = document.getElementById(id);
   if(el) el.classList.add('active');
 }
+
+document.getElementById('btnHistory').addEventListener('click', ()=>{ renderHistory(); show('history'); });
+document.getElementById('backHome2').addEventListener('click', ()=> show('home'));
+document.getElementById('backHome').addEventListener('click', (e)=>{ e.preventDefault(); show('home'); });
+document.getElementById('btnWoman').addEventListener('click', ()=> openPerson('woman'));
+document.getElementById('btnBoy').addEventListener('click', ()=> openPerson('boy'));
+document.getElementById('btnMan').addEventListener('click', ()=> openPerson('man'));
+document.getElementById('day1').addEventListener('click', ()=> openDay(1));
+document.getElementById('day2').addEventListener('click', ()=> openDay(2));
+document.getElementById('day3').addEventListener('click', ()=> openDay(3));
+document.getElementById('prevBtn').addEventListener('click', ()=>{ pageIndex--; renderPage(); });
+document.getElementById('nextBtn').addEventListener('click', ()=>{ pageIndex++; renderPage(); });
+document.getElementById('backPerson').addEventListener('click', (e)=>{ e.preventDefault(); show('person'); });
+document.getElementById('btnResetDay').addEventListener('click', (e)=>{ e.preventDefault(); resetDay(false); });
+document.getElementById('btnFinish').addEventListener('click', (e)=>{ e.preventDefault(); finishDay(); });
 
 function openPerson(p){
   currentPerson = p;
@@ -738,8 +722,13 @@ function drawChart(){
   ctx.restore();
 }
 
+const modal = document.getElementById('imageModal');
+const modalImg = document.getElementById('modalImg');
+const modalTitle = document.getElementById('modalTitle');
+document.getElementById('modalClose').addEventListener('click', hideImage);
+modal.addEventListener('click', (e)=>{ if(e.target === modal) hideImage(); });
+
 function showImage(file, title){
-  if(!modal || !modalImg || !modalTitle) return;
   modalImg.src = 'img/' + file;
   modalImg.alt = title;
   modalTitle.textContent = title;
@@ -747,7 +736,6 @@ function showImage(file, title){
 }
 
 function hideImage(){
-  if(!modal || !modalImg) return;
   modal.classList.remove('show');
   modalImg.src = '';
 }

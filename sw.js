@@ -2,7 +2,7 @@
 // index.html всегда берётся из сети (если онлайн), кэш — оффлайн-фоллбек.
 // Никаких ручных версий/параметров не нужно.
 
-const CACHE = 'app-cache-simple-1';
+const CACHE = 'app-cache-simple-2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {

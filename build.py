@@ -1,7 +1,6 @@
 import json
+from datetime import datetime, timezone
 from textwrap import dedent
-
-APP_VERSION = "2024-05-21-02"
 
 programs = {}
 image_sources = {
@@ -265,13 +264,15 @@ body_html = dedent("""
 """)
 
 script_js = dedent("""
+  const HTML_ESCAPE = Object.freeze({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  });
   function escapeHtml(str){
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+    return String(str).replace(/[&<>"']/g, ch => HTML_ESCAPE[ch] || ch);
   }
 const personNames = { woman:'Woman', boy:'Boy', man:'Man' };
 
@@ -980,9 +981,11 @@ programs["man"] = {
     ]
 }
 
+build_stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
 template = dedent(f"""
 <!DOCTYPE html>
-<!-- build version: {APP_VERSION} -->
+<!-- build version: {build_stamp} -->
 <html lang=\"ru\">
 <head>
 <meta charset=\"UTF-8\">

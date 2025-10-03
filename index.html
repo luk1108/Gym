@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<!-- build version: 2025-10-03T12:29:40Z -->
+<!-- build version: 2025-10-03T12:47:11Z -->
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -1952,15 +1952,9 @@ const imageSources = {
   "hip_stretch_floor.jpg": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Hip-Flexor-Stretch.gif"
 };
 
-  const HTML_ESCAPE = Object.freeze({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  });
+  const HTML_ESCAPE = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
   function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, ch => HTML_ESCAPE[ch] || ch);
+    return String(str).replace(/[&<>"']/g, ch => HTML_ESCAPE[ch]);
   }
 const personNames = { woman:'Woman', boy:'Boy', man:'Man' };
 
